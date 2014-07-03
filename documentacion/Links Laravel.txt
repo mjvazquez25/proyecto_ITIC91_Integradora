@@ -1,0 +1,25 @@
+/***********************************
+ITIC91
+
+Proyecto: Floreria
+
+Paginas que el equipo consulto para instalar, aprender e iniciar a trabajar con el 
+framework (PHP) LARAVEL.
+
+UTCANCUN
+
+***********************************/
+
+https://github.com/laravel/laravel
+
+http://desarrollandowebsdinamicas.blogspot.mx/2013/03/que-es-laravel.html
+
+https://www.youtube.com/watch?v=pOdWEoUTwD4&hd=1
+
+http://www.elserver.com/conociendo-laravel-el-framework-que-revoluciono-php/
+
+http://jurgens-nettuts-tutorial.s3.amazonaws.com/codehappy.pdf
+
+http://laravel.com/docs/quick
+
+http://codehero.co/laravel-4-desde-cero-instalacion-configuracion/
