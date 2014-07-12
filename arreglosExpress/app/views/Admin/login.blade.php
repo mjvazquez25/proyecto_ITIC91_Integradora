@@ -26,17 +26,16 @@ Julio 2014
         
     </head>
     <body>
-        {{-- Preguntamos si hay algun mensaje de error y si hay lo mostramos  --}}
-        @if(Session::has('mensaje_error'))
-            {{ Session::get('mensaje_error') }}
-        @endif
-        
         
       <br/>  
       <h2 style="color:white; font-family: Arial,Helvetica,sans-serif; text-align: center">Arreglos Express :: Admin</h2>         
+      <br/>
       
-      <div class="login_caja" id="login_caja" style="position:relative; margin:4% auto;">
-          
+      {{-- Preguntamos si hay algun mensaje de error y si hay lo mostramos  --}}
+        @if(Session::has('mensaje_error'))
+            <script type="text/javascript"> alert(' {{ Session::get('mensaje_error') }} '); </script>
+        @endif
+      <div class="login_caja" id="login_caja" style="position:relative; margin:2% auto;">          
         <div style="position:relative; margin-left:30px; margin-right:30px;  height:200px;">
             <br />      
             <form name="login" id="frmLogin" action="" method="post">            

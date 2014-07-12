@@ -23,28 +23,28 @@ class AuthController extends BaseController {
      */
     public function postLogin()
     {
+        //validar datos de entrada
+        if(!isset($_POST)){
+                    return Redirect::to('Admin')
+                    ->with('mensaje_error', 'Debes ingresar los datos de autenticacion')
+                    ->withInput();
+        }
+         
+        $results = DB::select('select * from cusuario where dsUsuario = ? and dsPassword= ?',
+                                array(
+                                    (string)$_POST['usuario'],
+                                    (string)$_POST['password']
+                            ));
         
-//        // Guardamos en un arreglo los datos del usuario.
-//        $userdata = array(
-//            'dsUsuario' => $_POST('usuario'),
-//            'dsPassword' => $_POST('password')
-//        );
-//        print_r($userdata); //die();
-        $results = DB::select('select * from cusuario where id = ?',array(1));
-        print_r($results); die();
+        //validar que se haya encontrado al usuario, en caso contrario redirecionar al index
+        if(empty($results)){
+            return Redirect::to('Admin')
+                    ->with('mensaje_error', 'Datos de logueo incorrectos')
+                    ->withInput();
+        }
+                
+        // De ser datos válidos nos mandara a la pantalla principal del administrador
+            return Redirect::to('HomeAdmin');
         
-//        return View::make('Admin.login');
-        
-        // Validamos los datos y además mandamos como un segundo parámetro la opción de recordar el usuario.
-        /*if(Auth::attempt($userdata, Input::get('remember-me', 0)))
-        {
-            // De ser datos válidos nos mandara a la bienvenida
-            return Redirect::to('/');
-        }*/
-        
-        // En caso de que la autenticación haya fallado manda un mensaje al formulario de login y también regresamos los valores enviados con withInput().
-//        return Redirect::to('Admin')
-//                    ->with('mensaje_error', 'Tus datos son incorrectos')
-//                    ->withInput();
     }
 }

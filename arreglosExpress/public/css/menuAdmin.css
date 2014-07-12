@@ -1,0 +1,45 @@
+
+#menuAdmin {  text-align: center;
+font-size: 0.7em;
+width: 880px;
+margin: 20px auto;
+}
+#menuAdmin ul { list-style-type: none;}
+#menuAdmin ul li.nivel1 { float: left;
+width: 162px;
+margin-right: 2px;
+}
+#menuAdmin ul li a {display: block;
+text-decoration: none;
+color: #fff;
+background-color: #399;
+border: solid 1px #fff;
+padding: 8px;
+position: relative;
+}
+#menuAdmin ul li:hover {position: relative;
+}
+#menuAdmin ul li a:hover, #menuAdmin ul li:hover a.nivel1 {background-color: #6CC;
+color: #000;
+position: relative;
+}
+#menuAdmin ul li a.nivel1 {display: block!important;display: none;
+position: relative;
+}
+#menuAdmin ul li ul {display: none;
+}
+#menuAdmin ul li a:hover ul, #menuAdmin ul li:hover ul {display: block;
+position: absolute;left: 0px;
+}
+#menuAdmin ul li ul li a {width: 160px;
+padding: 6px 0px 8px 0px;
+border-top-color: #000;
+}
+#menuAdmin ul li ul li a:hover {border-top-color: #000;
+position: relative;
+}
+table.falsa {border-collapse:collapse;
+border:0px;
+float: left;
+position: relative;
+}

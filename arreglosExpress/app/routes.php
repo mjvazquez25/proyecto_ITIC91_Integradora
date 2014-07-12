@@ -37,15 +37,15 @@ Route::get('Admin', 'AuthController@showLogin');
 Route::post('Admin', 'AuthController@postLogin');
 
 // Nos indica que las rutas que están dentro de al solo serán mostradas si antes el usuario se ha autenticado.
-/*Route::group(array('before' => 'auth'), function()
-{
-    // Esta sera nuestra ruta de bienvenida.
-    /*Route::get('/', function()
+//Route::group(array('before' => 'auth'), function()
+//{
+    // Esta sera nuestra ruta de bienvenida al Administradors
+    Route::get('HomeAdmin', function()
     {
-        return View::make('hello');
-    }); *
+        return View::make('Admin.homeAdmin');
+    }); 
     
     // Esta ruta nos servira para cerrar sesion.
     Route::get('logout', 'AuthController@logOut');
     
-}); */
+//}); 
