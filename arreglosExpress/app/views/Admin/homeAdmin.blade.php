@@ -1,5 +1,7 @@
 @extends('layouts.masterAdmin')
 
 @section('content')
-    <h1>AQUI ES EL INICIO DEL ADMINISTRADOR</h1>        
+<div style="margin-top:13px;">    
+    <h1 style="text-align:center">BIENVENIDO AL PANEL DE ADMINISTRACION</h1>        
+</div>
 @stop

@@ -45,6 +45,9 @@ Route::post('Admin', 'AuthController@postLogin');
         return View::make('Admin.homeAdmin');
     }); 
     
+    //ruta Admin pantalla de productos
+    Route::get('AdminProducto', 'ProductoController@listProducto');
+    
     // Esta ruta nos servira para cerrar sesion.
     Route::get('logout', 'AuthController@logOut');
     

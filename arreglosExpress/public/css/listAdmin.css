@@ -1,0 +1,28 @@
+
+table.display {
+    margin: 0 auto;
+    clear: both;
+    width: 100%;
+    border: 1px solid #e3348c;
+}
+
+table.display thead th {
+        color:white;
+        font-family: verdana;
+        font-size: 10px;
+	padding-right: 15px;
+	border-bottom: 1px solid black;
+	font-weight: bold;
+	/*cursor: pointer;*/
+        text-align: center;
+	/* cursor: hand;*/
+}
+
+table.display tbody tr{
+    font-family: verdana;
+    font-size: 11px;
+}
+
+table.display tbody tr:hover {
+    background: LightSteelBlue;/*PaleTurquoise;*/
+}
