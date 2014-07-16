@@ -1,6 +1,8 @@
 @extends('layouts.masterAdmin')
 
 @section('content')
+
+    {{ HTML::script('js/Admin/listProducto.js'); }}
     <!-- <div style="margin-top:5px;">    -->
         <h1 style="text-align:center">Listado de productos</h1>        
     <!-- </div> -->
@@ -11,12 +13,14 @@
             <table cellspacing='2' cellpadding='2' border='0' align="center">
                 <tr>
                     <td>
-                        <font>Nombre:</font>
+                        <font>Producto:</font>
                         <input type="text" value="" id="dsNombreProducto" name="dsNombreProducto" size="30" />
                     </td>
-                    <td> &nbsp;&nbsp;
-                        <font id="status_bar">Descripcion:</font>
-                        <input type="text" value="" id="dsDescripcionProducto" name="dsDescripcionProducto" size="45" />
+                    <td>&nbsp;&nbsp;<font>Fecha Alta Producto:</font>
+                        <input type="text" value="" size="10" name="fechaInicio" id="feInicio" readonly='readonly' />
+                    </td>
+                    <td>&nbsp;&nbsp;<font></font>
+                        <input type="text" value="" size="10" name="fechaFin" id="feFin" readonly='readonly' />
                     </td>
                      <td align="right">
                         <input type="button" id="aceptar" class="acepto" value="Buscar" style="cursor:pointer;position:relative; width:145px; height:30px; background:#BEC780; border-radius:7px; -moz-border-radius:7px; -webkit-border-radius:7px; text-transform: uppercase;"/>&nbsp;&nbsp;

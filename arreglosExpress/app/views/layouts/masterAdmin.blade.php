@@ -19,9 +19,11 @@ Julio 2014
 {{ HTML::style('css/floreria.css'); }}
 {{ HTML::style('css/menuAdmin.css'); }}
 {{ HTML::style('css/listAdmin.css'); }}
+{{ HTML::style('css/jquery-ui-1.9.2.custom.css'); }}
 
 <!-- se incluyen los archivos js -->
-{{ HTML::script('js/jquery/jquery-1.7.2.min.js'); }}
+{{ HTML::script('js/jquery/jquery-1.8.3.js'); }}
+{{ HTML::script('js/jquery/jquery-ui-1.9.2.custom.js'); }}
 
 <title>Arreglos Express :: Admin </title>
 </head>
