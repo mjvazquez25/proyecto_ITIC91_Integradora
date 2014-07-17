@@ -32,15 +32,20 @@ Julio 2014
     
 <div id="menuAdmin">
     <ul>
-      <li class="nivel1"><a href="AdminProducto" class="nivel1">Productos</a>	
-        </li>
-        <li class="nivel1"><a href="#" class="nivel1">Clientes</a>
+      <li class="nivel1">
+          <a href="AdminProducto" class="nivel1">Productos</a>	
       </li>
-        <li class="nivel1"><a href="#" class="nivel1">Ventas</a>
+      <li class="nivel1">
+          <a href="#" class="nivel1">Clientes</a>
       </li>
-        <li class="nivel1"><a href="#" class="nivel1">Mensajes</a>
+      <li class="nivel1">
+          <a href="#" class="nivel1">Ventas</a>
       </li>
-        <li class="nivel1"><a href="Admin" class="nivel1">Salir</a>
+      <li class="nivel1">
+          <a href="#" class="nivel1">Mensajes</a>
+      </li>
+      <li class="nivel1">
+          <a href="Admin" class="nivel1">Salir</a>
       </li>
     </ul>
 </div>

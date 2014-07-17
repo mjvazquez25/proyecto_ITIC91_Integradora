@@ -4,6 +4,7 @@ table.display {
     clear: both;
     width: 100%;
     border: 1px solid #e3348c;
+    text-align: center;
 }
 
 table.display thead th {
@@ -21,6 +22,7 @@ table.display thead th {
 table.display tbody tr{
     font-family: verdana;
     font-size: 11px;
+    text-align: center !important;
 }
 
 table.display tbody tr:hover {

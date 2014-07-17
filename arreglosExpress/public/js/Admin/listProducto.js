@@ -4,6 +4,7 @@ $(document).ready(function(){
     var dates = $( "#feInicio, #feFin" ).datepicker({
         maxDate: "0",
         showOn: "button",
+        dateFormat: 'yy-mm-dd',
         buttonImageOnly: true,
         dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
         monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo',

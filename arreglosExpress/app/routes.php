@@ -48,7 +48,10 @@ Route::post('Admin', 'AuthController@postLogin');
     //ruta Admin pantalla de productos
     Route::get('AdminProducto', 'ProductoController@listProducto');
     
+    //admin pantalla de productos con filtro
+    Route::post('AdminProducto', 'ProductoController@getListByFiltro');
+    
     // Esta ruta nos servira para cerrar sesion.
-    Route::get('logout', 'AuthController@logOut');
+    Route::get('logout', 'AuthController@logOut');      
     
 //}); 
