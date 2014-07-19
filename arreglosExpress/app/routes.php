@@ -51,6 +51,15 @@ Route::post('Admin', 'AuthController@postLogin');
     //admin pantalla de productos con filtro
     Route::post('AdminProducto', 'ProductoController@getListByFiltro');
     
+    //handle para eliminar/desactivar el producto
+    Route::post('EliminaProducto', 'ProductoController@eliminaProducto');
+    
+    //handle para nuevo producto pantalla
+    Route::get('NuevoProducto', function()
+    {
+        return View::make('Admin.nuevoProducto');
+    }); 
+    
     // Esta ruta nos servira para cerrar sesion.
     Route::get('logout', 'AuthController@logOut');      
     

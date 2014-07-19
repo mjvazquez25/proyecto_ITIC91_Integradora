@@ -1,6 +1,7 @@
 
 $(document).ready(function(){
   
+  //filtro calendario
     var dates = $( "#feInicio, #feFin" ).datepicker({
         maxDate: "0",
         showOn: "button",
@@ -23,5 +24,34 @@ $(document).ready(function(){
 						selectedDate, instance.settings );
 				dates.not( this ).datepicker( "option", option, date );
 			}
+    })
+    
+    //eliminar producto
+    $(".btnEliminar").click(function(){
+        var idProducto = $(this).attr('idProducto');
+        
+         efectoBlock();
+        //ajax para eliminar el producto
+        $.post("EliminaProducto", 
+            {
+                idProducto:idProducto
+            }, 
+            function(data){               
+                $.unblockUI();
+                
+                //validar respuesta                
+                if(data.error == 1){
+                    alert(data.detalle);                    
+                }else{
+                    alert('Datos modificados correctamente');
+                    efectoBlock();
+                    location.reload();
+                }
+            }) 
+    })        
+    
+    //click al boton nuevo producto
+    $("#nuevoProducto").click(function(){
+        location.href='NuevoProducto'
     })
 })
