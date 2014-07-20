@@ -17,10 +17,11 @@ $(document).ready(function(){
          //[Programacion para el modulo de upload archivos multiples]
          $('#txtarchivo').uploadify({
                     'uploader'  : 'js/uploadify.swf',
-                    'script'    : 'uploadArchivoHandle.php',
+                    'script'    : 'uploadArchivoHandle',
                     'cancelImg' : 'img/cancel.png',
-                    'auto'      : true,
-                    'folder'    : 'doc_brief',
+                    'auto'      : false,
+                    'folder'    : 'uploadImg',
+//                    'scriptData' : {'idProducto':10},
                     'queueID'    : 'custom-queue',
                     'buttonText' : "BUSCAR",
                     'width'      : 115,
@@ -39,5 +40,55 @@ $(document).ready(function(){
         $(".msjFlash").show();
      }
   
+     $("#guardarProducto").click(function(){
+         
+        if($.trim($("#txtNombreProducto").val())==''){
+            alert('Ingresa el Nombre del Producto');
+            $("#txtNombreProducto").focus();
+            return;
+        }
+        
+        
+        if($.trim($("#txtDescripcion").val())==''){
+            alert('Ingresa la Descripcion del Producto');
+            $("#txtDescripcion").focus();
+            return;
+        }
+        
+        if(!isValid($("#txtPrecio"),"Precio","numeric_decimal",false))
+        {
+            alert(_menError);
+            _menError="";
+            return;
+        }
+        
+        if(!isValid($("#txtStock"),"Stock","numericpos",false))
+        {
+            alert(_menError);
+            _menError="";
+            return;
+        }
+        
+        efectoBlock();
+        $.post("GuardaProducto",//url destino
+            $("#frmNuevoProducto").serialize(),//enviamos todos los datos del formulario
+            function(data)
+            {
+                    $.unblockUI();        
+                    //console.log(data)                    
+                    if(data.error==1){//error                    
+                        alert("Error al intentar Guardar el Producto.\n");
+                    }else{//ok                    
+                        if (useFlash){//upload archivos adjuntos
+                                efectoBlock();
+                                $('#txtarchivo').uploadifySettings('scriptData',{'idProducto':data.idProducto},true);
+                                $('#txtarchivo').uploadifyUpload();
+                                $.unblockUI();
+                        }
+                        alert("Producto guardado exitosamente!!");
+                        location.href="AdminProducto";
+                    }     
+            })  
+     })
     
 })

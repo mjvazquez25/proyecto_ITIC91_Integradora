@@ -54,7 +54,7 @@
                        <tr>                            
                            <td align="center"><font face='verdana' size='1'>{{$producto->dsNombre}}</font></td>                                                                                            
                            <td align="center"><font face='verdana' size='1'>{{ Str::limit($producto->dsDescripcion,30)}}..</font></td>
-                           <td align="center"><font face='verdana' size='2'>$ {{$producto->noPrecio}} MXN</font></td>
+                           <td align="center"><font face='verdana' size='2'>$ {{ number_format($producto->noPrecio,2,'.','') }} MXN</font></td>
                            <td align="center"><font face='verdana' size='1'>{{$producto->noStock}}</font></td>                           
                            <td align="center"><font face='verdana' size='1'><img border="0" style="cursor:pointer" idProducto="{{$producto->id}}" class="btnEditar" title="Editar" src="img/editar.jpg"/></font></td>
                            <td align="center"><font face='verdana' size='1'><img border="0" style="cursor:pointer" idProducto="{{$producto->id}}" class="btnEliminar" title="Eliminar" src="img/cancel.png"/></font></td>

@@ -60,6 +60,12 @@ Route::post('Admin', 'AuthController@postLogin');
         return View::make('Admin.nuevoProducto');
     }); 
     
+    //handle para eliminar/desactivar el producto
+    Route::post('GuardaProducto', 'ProductoController@nuevoProducto');
+    
+    //uploadArchivoHandle
+    Route::post('uploadArchivoHandle', 'ProductoController@guardaImagen');
+    
     // Esta ruta nos servira para cerrar sesion.
     Route::get('logout', 'AuthController@logOut');      
     

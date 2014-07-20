@@ -4,6 +4,7 @@
     
     {{ HTML::style('css/uploadify.css'); }}
     
+    {{ HTML::script('js/Validation.js'); }}
     {{ HTML::script('js/hayflash.js'); }}
     {{ HTML::script('js/Admin/nuevoProducto.js'); }}
     {{ HTML::script('js/jquery.blockUI.js'); }}
@@ -28,7 +29,7 @@
                 <td align="left">
                     <font color="red" size="3">*</font>
                     <strong class="lblDescripcion">Descripcion Producto:</strong><br/>
-                    <textarea name='txtIdeaCreativa' id='txtIdeaCreativa' id='' cols="98" rows="5"></textarea>
+                    <textarea name='txtDescripcion' id='txtDescripcion' id='' cols="98" rows="5"></textarea>
                 </td>
             </tr>
             <tr>                    
@@ -36,6 +37,7 @@
                     <font color="red" size="3">*</font>
                     <strong class="lblDescripcion">Precio:</strong><br/>
                     $<input type="text" name="txtPrecio" id="txtPrecio" size="25"/>
+                    <small style="color:red">Solo n&uacute;meros</small>
                 </td>
             </tr>
             <tr>                    
@@ -43,6 +45,7 @@
                     <font color="red" size="3">*</font>
                     <strong class="lblDescripcion">Stock inicial:</strong><br/>
                     <input type="text" name="txtStock" id="txtStock" size="25"/>
+                    <small style="color:red">Solo n&uacute;meros</small>
                 </td>
             </tr>
             <tr>
