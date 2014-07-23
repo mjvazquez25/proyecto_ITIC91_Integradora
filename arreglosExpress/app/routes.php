@@ -48,13 +48,16 @@ Route::post('Admin', 'AuthController@postLogin');
     //ruta Admin pantalla de productos
     Route::get('AdminProducto', 'ProductoController@listProducto');
     
+    //ruta Admin Pantalla cliente
+    Route::get('AdminCliente', 'ClienteController@listCliente');
+    
     //admin pantalla de productos con filtro
     Route::post('AdminProducto', 'ProductoController@getListByFiltro');
     
     //handle para eliminar/desactivar el producto
     Route::post('EliminaProducto', 'ProductoController@eliminaProducto');
     
-    //handle para nuevo producto pantalla
+    //handle para nuevo producto 
     Route::get('NuevoProducto', function()
     {
         return View::make('Admin.nuevoProducto');
@@ -63,8 +66,17 @@ Route::post('Admin', 'AuthController@postLogin');
     //handle para eliminar/desactivar el producto
     Route::post('GuardaProducto', 'ProductoController@nuevoProducto');
     
+    // handle para editar el producto
+    Route::get('EditarProducto', 'ProductoController@editarProducto');      
+    
     //uploadArchivoHandle
     Route::post('uploadArchivoHandle', 'ProductoController@guardaImagen');
+    
+    //handle para eliminar/desactivar la imagen del producto
+    Route::post('EliminaProductoImagen', 'ProductoController@eliminaProductoImagen');
+    
+    // handle para editar el producto
+    Route::post('UpdateProducto', 'ProductoController@updateProducto');  
     
     // Esta ruta nos servira para cerrar sesion.
     Route::get('logout', 'AuthController@logOut');      

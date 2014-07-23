@@ -36,7 +36,7 @@ Julio 2014
           <a href="AdminProducto" class="nivel1">Productos</a>	
       </li>
       <li class="nivel1">
-          <a href="#" class="nivel1">Clientes</a>
+          <a href="AdminCliente" class="nivel1">Clientes</a>
       </li>
       <li class="nivel1">
           <a href="#" class="nivel1">Ventas</a>

@@ -50,6 +50,13 @@ $(document).ready(function(){
             }) 
     })        
     
+    //EditarProducto
+    //editar producto
+    $(".btnEditar").click(function(){
+        var idProducto = $(this).attr('idProducto');
+        location.href='EditarProducto?idProducto='+idProducto
+    }) 
+    
     //click al boton nuevo producto
     $("#nuevoProducto").click(function(){
         location.href='NuevoProducto'

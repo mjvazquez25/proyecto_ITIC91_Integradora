@@ -1,32 +1,32 @@
 <?php 
-class ProductoController extends BaseController {
+class ClienteController extends BaseController {
  
     /**
-     * Muestra la lista con todos productos
+     * Muestra la lista con todos los clientes
      */
-    public function listProducto()
+    public function listCliente()
     { 
         //obtenemos los registros de los productos guardados en la bd
-        $listProducto = Producto::where('cnActivo', '=', 1)->get();   
-        
+       // $listCliente = Cliente::all();   
+        echo "fernanda"; //die();
         //setear valores de los campos de fecha -- por default 90 dias hacia atras
-        $diasAtras90 = time()-(180*24*60*60);
+        /*$diasAtras90 = time()-(180*24*60*60);//
         $feIni =  date('Y-m-d',$diasAtras90);
-        $feFin = date("Y-m-d", time());         
+        $feFin = date("Y-m-d", time());   */      
 
         //pasar los parametros a la vista
-        return View::make('Admin.listProducto', 
-                        array( 'listProducto' => $listProducto,
-                              'feIni' => $feIni,
-                              'feFin' => $feFin,
-                              'dsNombre' => '',
+        return View::make('Admin.listCliente', 
+                        array( // 'listCliente' => $listCliente,
+//                              'feIni' => $feIni,
+//                              'feFin' => $feFin,
+//                              'dsNombre' => '',
                             ));
     }
     
     /**
      * Busca y retorna el listado de productos mediante filtros
      */
-    public function getListByFiltro()
+    /*public function getListByFiltro()
     {        
         //obtenemos los registros de los productos que coincidan con los datos de busqueda    
         $Producto = new Producto();
@@ -44,35 +44,8 @@ class ProductoController extends BaseController {
                               'feFin' => $feFin,
                               'dsNombre' => $dsNombre 
                             ));
-    }
+    }*/
     
-    /*
-     * actualiza el campo cnActivo en la BD
-     */
-    public function eliminaProducto()
-    {
-        if(Request::ajax()){
-                        
-            $res = Producto::where('id', (int)$_POST['idProducto'])
-                      ->update(array('cnActivo' => 0));
-                        
-            if((int)$res == 1){//actualizacion ok                
-                return Response::json(array(
-			    'error' => 0
-			));                 
-            }else{//error en la actualizaion
-                return Response::json(array(
-			    'error' => 1,
-			    'detalle' => 'No se puedo actualizar el registro'
-			)); 
-            }            
-        }else{
-            return Response::json(array(//no es ajax
-			    'error' => 1,
-			    'detalle' => 'peticion no valida'
-			)); 
-        }
-    }
     
     /*
      * insert nuevo producto en la bd
@@ -107,31 +80,7 @@ class ProductoController extends BaseController {
 			)); 
         }
     }
-            
-    /*
-     * guardar imagen del producto
-     */
-    public function guardaImagen()
-    {
-            $tempFile = $_FILES['Filedata']['tmp_name'];
-            
-            $prefijo = substr(md5(uniqid(rand())),0,2);    
-            $charNotValid = array ("'"," ","Ñ","ñ");
-            $file_name = $prefijo."_".str_replace($charNotValid,"",stripslashes(utf8_decode($_FILES['Filedata']['name'])));              
-            $targetPath = $_SERVER['DOCUMENT_ROOT'] .'/'. $_REQUEST['folder'] . '/';            
-            $targetFile =  str_replace('//','/',$targetPath) . $file_name;            
-            
-            if (copy($tempFile,$targetFile)){//copy a la carpeta del servidor
-                
-                $ProductoImagen = new ProductoImagen;
-                $ProductoImagen->dsRuta = $file_name;
-                $ProductoImagen->idProducto = (int)$_POST['idProducto'];
-                $ProductoImagen->save();
-            }
-            
-            echo 1;
-    }
-    
+           
     public function editarProducto()
     {
         $idProducto = (int)$_GET['idProducto'];
@@ -157,32 +106,7 @@ class ProductoController extends BaseController {
                               'usuarios'=>$usuarios,
                             ));
     }
-    
-    public function eliminaProductoImagen()
-    {
-        if(Request::ajax()){
-                        
-            $res = ProductoImagen::where('id', (int)$_POST['idProductoImagen'])
-                      ->update(array('cnVisible' => 0));
-                        
-            if((int)$res == 1){//actualizacion ok                
-                return Response::json(array(
-			    'error' => 0
-			));                 
-            }else{//error en la actualizaion
-                return Response::json(array(
-			    'error' => 1,
-			    'detalle' => 'No se puedo actualizar el registro'
-			)); 
-            }            
-        }else{
-            return Response::json(array(//no es ajax
-			    'error' => 1,
-			    'detalle' => 'peticion no valida'
-			)); 
-        }
-    }
-    
+            
     /*
      * actualizar datos del producto
      */
@@ -190,12 +114,14 @@ class ProductoController extends BaseController {
     {
         if(Request::ajax()){
               
-            //            
-            $Producto = Producto::find(1);//id producto
+            //buscar como hacer el update
+            /*
+            $Producto = new Producto;
             $Producto->dsNombre = trim($_POST['txtNombreProducto']);
             $Producto->dsDescripcion = trim($_POST['txtDescripcion']);
             $Producto->noPrecio = number_format((float)trim($_POST['txtPrecio']),2, '.', '');
             $Producto->noStock = (int)trim($_POST['txtStock']);
+            */
 
             $res = $Producto->save();
                                     
@@ -207,7 +133,7 @@ class ProductoController extends BaseController {
             }else{//error en la actualizaion
                 return Response::json(array(
 			    'error' => 1,
-			    'detalle' => 'No se pudo actualizar el registro'
+			    'detalle' => 'No se puedo insertar el registro'
 			)); 
             }          
         }else{
