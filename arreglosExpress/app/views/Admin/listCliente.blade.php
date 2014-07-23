@@ -16,9 +16,12 @@
                 <tr>
                     <td>
                         <font>Nombre:</font>
-                        <input type="text" value="" id="dsNombreProducto" name="dsNombreProducto" size="30" />
+                        <input type="text" value="{{$dsNombre}}" id="dsNombre" name="dsNombre" size="30" />
                     </td>
-                    
+                    <td>
+                        <font>Correo:</font>
+                        <input type="text" value="{{$dsEmail}}" id="dsEmail" name="dsEmail" size="30" />
+                    </td>
                      <td align="right">
                         <input type="submit" id="aceptar" class="acepto" value="Buscar" style="cursor:pointer;position:relative; width:145px; height:30px; background:#BEC780; border-radius:7px; -moz-border-radius:7px; -webkit-border-radius:7px; text-transform: uppercase;"/>&nbsp;&nbsp;
                     </td>
@@ -33,18 +36,21 @@
         <thead>
 		<tr bgcolor="#399">
                     <th>Nombre</th>
-                    <th>Email</th>                        
-                    <th>Precio</th>
-                    <th>Stock</th>                    
-                    <th colspan="2"></th>
+                    <th>Email</th>                    
+                    <th></th>
 		</tr>
 	</thead>
 	<tbody>
-            <tr>
-                <td>
-                    aqui van todos los clientes
-                </td>
-            </tr>
+             @if (count($listCliente) > 0)
+                @foreach($listCliente as $cliente)
+                       <tr>                            
+                           <td align="center"><font face='verdana' size='1'>{{$cliente->dsNombre.' '.$cliente->dsApellidoPaterno.' '.$cliente->dsApellidoMaterno}}</font></td>                                                                                            
+                           <td align="center"><font face='verdana' size='1'>{{$cliente->dsEmail}}</font></td>                         
+                           <td align="center"><font face='verdana' size='1'><img border="0" style="cursor:pointer" idCliente="{{$cliente->id}}" class="btnVerDetalle" title="Ver Detalle" src="img/editar.jpg"/></font></td>
+                           
+                       </tr> 
+                 @endforeach 
+            @endif       
         </tbody>
     </table>
 @stop

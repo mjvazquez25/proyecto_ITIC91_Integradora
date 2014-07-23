@@ -189,9 +189,8 @@ class ProductoController extends BaseController {
     public function updateProducto()
     {
         if(Request::ajax()){
-              
-            //            
-            $Producto = Producto::find(1);//id producto
+            
+            $Producto = Producto::find((int)$_POST['idProducto']);//id producto
             $Producto->dsNombre = trim($_POST['txtNombreProducto']);
             $Producto->dsDescripcion = trim($_POST['txtDescripcion']);
             $Producto->noPrecio = number_format((float)trim($_POST['txtPrecio']),2, '.', '');
@@ -199,7 +198,7 @@ class ProductoController extends BaseController {
 
             $res = $Producto->save();
                                     
-            if((int)$res == 1){//insert ok                
+            if((int)$res == 1){//UPDATE ok                
                 return Response::json(array(
 			    'error' => 0,
                             'idProducto' =>$Producto->id

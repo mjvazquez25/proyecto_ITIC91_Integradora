@@ -51,6 +51,9 @@ Route::post('Admin', 'AuthController@postLogin');
     //ruta Admin Pantalla cliente
     Route::get('AdminCliente', 'ClienteController@listCliente');
     
+    //ruta Admin Pantalla cliente
+    Route::post('AdminCliente', 'ClienteController@getListByFiltro');
+    
     //admin pantalla de productos con filtro
     Route::post('AdminProducto', 'ProductoController@getListByFiltro');
     
