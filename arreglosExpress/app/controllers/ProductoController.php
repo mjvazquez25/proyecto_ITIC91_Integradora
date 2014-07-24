@@ -138,9 +138,7 @@ class ProductoController extends BaseController {
         
         //obtener datos del producto
         $Producto = Producto::find($idProducto);
-        
-        $usuarios = Usuario::all(); 
-        
+                
         //obtener imagenes del producto
         $listProductoImagen = DB::table('cProductoImagen')
                     ->where('idProducto', '=', $idProducto)
@@ -153,8 +151,7 @@ class ProductoController extends BaseController {
                               'dsDescripcion' => $Producto->dsDescripcion,  
                               'noPrecio' => $Producto->noPrecio,    
                               'noStock' => $Producto->noStock,   
-                              'listProductoImagen' => $listProductoImagen,
-                              'usuarios'=>$usuarios,
+                              'listProductoImagen' => $listProductoImagen                             
                             ));
     }
     

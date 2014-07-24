@@ -37,6 +37,24 @@ class ClienteController extends BaseController {
                               'dsEmail' => $dsEmail
                             ));
     }
- 
+    
+    /*
+     * mostrar informacion del cliente
+     */
+    public function clienteDetalle()
+    {
+        $idCliente = (int)$_GET['idCliente'];
+        
+        //obtener datos del cliente
+        $Cliente = Cliente::find($idCliente);        
+        //obtener direcciones del cliente
+        $Direccion = Direccion::where("idCliente","=",$idCliente)->get();
+        
+         return View::make('Admin.detalleCliente',
+                        array("Cliente" => $Cliente,
+                              "Direccion" => $Direccion
+                            ));
+        
+    }
 }
 ?>
