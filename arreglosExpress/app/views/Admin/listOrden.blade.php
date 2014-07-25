@@ -17,7 +17,7 @@
                     <td>
                         <font>Estatus:</font>
                         <select name="cmbEstatusVenta">
-                            <option value="-1">Todos</option>
+                            <!-- <option value="-1">Todos</option> -->
                               @if (count($listEstatusVenta) > 0)
                                 @foreach($listEstatusVenta as $estatus)
                                 <option value="{{$estatus->id}}">{{$estatus->dsEstatusVenta}}</option>
@@ -44,12 +44,24 @@
         <thead>
 		<tr bgcolor="#399">
                     <th>Orden</th>
+                    <th>Cliente</th>
+                    <th>Email</th>
                     <th>Importe</th>                
                     <th colspan="2"></th>
 		</tr>
 	</thead>
 	<tbody>
-                                     
+            @if (count($listOrden) > 0)
+                @foreach($listOrden as $orden)
+                       <tr>                            
+                           <td align="center"><font face='verdana' size='1'>{{$orden->id}}</font></td>                           
+                           <td align="center"><font face='verdana' size='1'>{{$orden->dsNombre. ' ' .$orden->dsApellidoPaterno}}</font></td>         
+                           <td align="center"><font face='verdana' size='1'>{{$orden->dsEmail}}</font></td>       
+                           <td align="center"><font face='verdana' size='2'>$ {{ number_format($orden->mnTransaccion,2,'.','') }} {{$orden->dsSimbolo}}</font></td>                     
+                           <td align="center"><font face='verdana' size='1'><img border="0" style="cursor:pointer" idProducto="{{$orden->id}}" class="btnEditar" title="Editar" src="img/editar.jpg"/></font></td>                           
+                       </tr> 
+                 @endforeach 
+            @endif                                      
         </tbody>
     </table>
 @stop

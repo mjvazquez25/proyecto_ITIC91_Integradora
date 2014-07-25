@@ -84,8 +84,11 @@ Route::post('Admin', 'AuthController@postLogin');
     // handle para editar el producto
     Route::post('UpdateProducto', 'ProductoController@updateProducto');  
     
-    //ruta Admin Pantalla cliente
+    //ruta Admin Pantalla Venta
     Route::get('AdminVenta', 'OrdenController@listOrden');
+    
+    //ruta Admin Pantalla Venta Por Filtro
+    Route::post('AdminVenta', 'OrdenController@getListByFiltro');
     
     // Esta ruta nos servira para cerrar sesion.
     Route::get('logout', 'AuthController@logOut');      
