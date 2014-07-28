@@ -28,8 +28,8 @@ $(document).ready(function(){
                 
     //Editar/Ver Orden
     $(".btnEditar").click(function(){
-        var idProducto = $(this).attr('idProducto');
-        location.href='EditarProducto?idProducto='+idProducto
+        var idOrden = $(this).attr('idOrden');
+        location.href='EditarOrden?idOrden='+idOrden
     }) 
     
 })

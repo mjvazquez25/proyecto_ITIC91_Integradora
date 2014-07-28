@@ -90,6 +90,9 @@ Route::post('Admin', 'AuthController@postLogin');
     //ruta Admin Pantalla Venta Por Filtro
     Route::post('AdminVenta', 'OrdenController@getListByFiltro');
     
+    //ruta Admin Pantalla Ver detalle Orden/Compra
+    Route::get('EditarOrden', 'OrdenController@editarOrden');
+    
     // Esta ruta nos servira para cerrar sesion.
     Route::get('logout', 'AuthController@logOut');      
     

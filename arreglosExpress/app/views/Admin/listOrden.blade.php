@@ -58,7 +58,7 @@
                            <td align="center"><font face='verdana' size='1'>{{$orden->dsNombre. ' ' .$orden->dsApellidoPaterno}}</font></td>         
                            <td align="center"><font face='verdana' size='1'>{{$orden->dsEmail}}</font></td>       
                            <td align="center"><font face='verdana' size='2'>$ {{ number_format($orden->mnTransaccion,2,'.','') }} {{$orden->dsSimbolo}}</font></td>                     
-                           <td align="center"><font face='verdana' size='1'><img border="0" style="cursor:pointer" idProducto="{{$orden->id}}" class="btnEditar" title="Editar" src="img/editar.jpg"/></font></td>                           
+                           <td align="center"><font face='verdana' size='1'><img border="0" style="cursor:pointer" idOrden="{{$orden->id}}" class="btnEditar" title="Editar" src="img/editar.jpg"/></font></td>                           
                        </tr> 
                  @endforeach 
             @endif                                      

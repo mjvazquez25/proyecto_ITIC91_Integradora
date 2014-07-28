@@ -68,25 +68,46 @@ class OrdenController extends BaseController {
     
     public function editarOrden()
     {
-        $idProducto = (int)$_GET['idProducto'];
+        $idOrden = (int)$_GET['idOrden'];
+        echo "<pre>";
+        //obtener datos de la orden
+        $Orden = Orden::find($idOrden);
+        print_r($Orden);
         
-        //obtener datos del producto
-        $Producto = Producto::find($idProducto);
+        //obtener datos del cliente
+        $Cliente = Cliente::find($Orden->idCliente);
+        print_r($Cliente);
                 
-        //obtener imagenes del producto
-        $listProductoImagen = DB::table('cProductoImagen')
-                    ->where('idProducto', '=', $idProducto)
-                    ->where('cnVisible',  '=', 1)
-                    ->get();
-                    
-         return View::make('Admin.editarProducto',
-                        array('idProducto' => $idProducto,
+        //obtener carro compra de la orden
+        $CarroCompra = CarroCompra::find($Orden->idCarroCompra);
+        print_r($CarroCompra);
+        
+        //obtener direccion de envio
+        $Direccion = Direccion::find($CarroCompra->idDireccion);
+        
+        //obtener datos de pago
+        $Pago = Pago::find($idOrden);
+        
+        //obtener estatus Pago
+        
+        //obtener carrito de compra
+        $Carrito = DB::table('carrocompraproducto')
+            ->join('cproducto', 'carrocompraproducto.idProducto', '=', 'cproducto.id')
+            ->select('cproducto.dsNombre', 'carrocompraproducto.noCantidad')
+            ->get();
+        
+        print_r($Carrito);
+        echo "</pre>";
+        /*
+         return View::make('Admin.editarOrden',
+                        array(
+                              'idProducto' => $idProducto,
                               'dsNombre' => $Producto->dsNombre,
                               'dsDescripcion' => $Producto->dsDescripcion,  
                               'noPrecio' => $Producto->noPrecio,    
                               'noStock' => $Producto->noStock,   
                               'listProductoImagen' => $listProductoImagen                             
-                            ));
+                            ));*/
     }
     
 }
