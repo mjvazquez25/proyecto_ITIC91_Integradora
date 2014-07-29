@@ -69,26 +69,23 @@ class OrdenController extends BaseController {
     public function editarOrden()
     {
         $idOrden = (int)$_GET['idOrden'];
-        echo "<pre>";
+        
         //obtener datos de la orden
         $Orden = Orden::find($idOrden);
-        print_r($Orden);
         
         //obtener datos del cliente
         $Cliente = Cliente::find($Orden->idCliente);
-        print_r($Cliente);
                 
         //obtener carro compra de la orden
         $CarroCompra = CarroCompra::find($Orden->idCarroCompra);
-        print_r($CarroCompra);
         
         //obtener direccion de envio
-        $Direccion = Direccion::find($CarroCompra->idDireccion);
-        
+        $Direccion = Direccion::find($CarroCompra->idDireccion);        
         //obtener datos de pago
         $Pago = Pago::find($idOrden);
         
         //obtener estatus Pago
+        $EstastusPago = EstatusPago::find($Pago->idEstatusPago);
         
         //obtener carrito de compra
         $Carrito = DB::table('carrocompraproducto')
@@ -96,19 +93,42 @@ class OrdenController extends BaseController {
             ->select('cproducto.dsNombre', 'carrocompraproducto.noCantidad')
             ->get();
         
-        print_r($Carrito);
-        echo "</pre>";
-        /*
          return View::make('Admin.editarOrden',
                         array(
-                              'idProducto' => $idProducto,
-                              'dsNombre' => $Producto->dsNombre,
-                              'dsDescripcion' => $Producto->dsDescripcion,  
-                              'noPrecio' => $Producto->noPrecio,    
-                              'noStock' => $Producto->noStock,   
-                              'listProductoImagen' => $listProductoImagen                             
-                            ));*/
+                              'idOrden' => $idOrden,      
+                              'Cliente' => $Cliente,
+                              'CarroCompra' => $CarroCompra,
+                              'Pago' => $Pago,
+                              'EstastusPago' => $EstastusPago,
+                              'Direccion' => $Direccion,
+                              'Carrito' => $Carrito,
+                              'Orden' => $Orden
+                            ));
     }
     
+    public function cambioEstadoEnvioOrden()
+    {
+        if(Request::ajax()){
+                        
+            $res = Orden::where('id', (int)$_POST['idOrden'])
+                      ->update(array('cnEnviado' => (int)$_POST['cnEnviado']));
+                        
+            if((int)$res == 1){//actualizacion ok                
+                return Response::json(array(
+			    'error' => 0
+			));                 
+            }else{//error en la actualizaion
+                return Response::json(array(
+			    'error' => 1,
+			    'detalle' => 'No se puedo actualizar el registro'
+			)); 
+            }            
+        }else{
+            return Response::json(array(//no es ajax
+			    'error' => 1,
+			    'detalle' => 'peticion no valida'
+			)); 
+        }
+    }
 }
 ?>

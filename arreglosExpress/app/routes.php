@@ -93,6 +93,9 @@ Route::post('Admin', 'AuthController@postLogin');
     //ruta Admin Pantalla Ver detalle Orden/Compra
     Route::get('EditarOrden', 'OrdenController@editarOrden');
     
+     //handle para marcar como enviado/no enviado el pedido
+    Route::post('UpdateEstatusEnvioOrden', 'OrdenController@cambioEstadoEnvioOrden');
+    
     // Esta ruta nos servira para cerrar sesion.
     Route::get('logout', 'AuthController@logOut');      
     
