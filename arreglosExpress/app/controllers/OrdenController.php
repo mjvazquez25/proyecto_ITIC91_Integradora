@@ -47,6 +47,9 @@ class OrdenController extends BaseController {
             ->select('corden.id', 'cestatusventa.dsEstatusVenta', 'corden.mnTransaccion','cmoneda.dsSimbolo',
                     'ccliente.dsNombre', 'ccliente.dsApellidoPaterno', 'ccliente.dsEmail')
             ->where('corden.idEstatusVenta', '=', (int)$_POST['cmbEstatusVenta'])
+//            ->whereBetween('created_at', array(
+//                                        date('Y-m-d',strtotime($_POST['fechaInicio']))." 00:00:00", 
+//                                        date('Y-m-d',strtotime($_POST['fechaFin']))." 23:59:59",))
             ->get();
         
         //obtener listado de estatus

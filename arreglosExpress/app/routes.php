@@ -13,7 +13,7 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('public.hello');
 });
 
 /****************************
@@ -95,6 +95,15 @@ Route::post('Admin', 'AuthController@postLogin');
     
      //handle para marcar como enviado/no enviado el pedido
     Route::post('UpdateEstatusEnvioOrden', 'OrdenController@cambioEstadoEnvioOrden');
+    
+    //ruta Admin Pantalla Mensajes
+    Route::get('AdminMensajeContacto', 'MensajeContactoController@listMensaje');
+    
+     //ruta Admin Pantalla Mensajes Por Filtro
+    Route::post('AdminMensajeContacto', 'MensajeContactoController@getListByFiltro');
+    
+    //ruta Admin ajax Ver detalle Mensaje
+    Route::post('VerDetalleMensaje', 'MensajeContactoController@mensajeDetalle');
     
     // Esta ruta nos servira para cerrar sesion.
     Route::get('logout', 'AuthController@logOut');      

@@ -42,7 +42,7 @@ Julio 2014
           <a href="AdminVenta" class="nivel1">Ventas</a>
       </li>
       <li class="nivel1">
-          <a href="#" class="nivel1">Mensajes</a>
+          <a href="AdminMensajeContacto" class="nivel1">Mensajes</a>
       </li>
       <li class="nivel1">
           <a href="Admin" class="nivel1">Salir</a>
