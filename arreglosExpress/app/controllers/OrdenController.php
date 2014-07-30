@@ -26,7 +26,7 @@ class OrdenController extends BaseController {
         return View::make('Admin.listOrden', 
                         array( 'listOrden' => $listOrden,
                                'listEstatusVenta' => $listEstatusVenta,
-                               'EstatusVentaSelected' => -1,
+                               'EstatusVentaSelected' => 1,
                                'feIni' => $feIni,
                                'feFin' => $feFin,
                             ));
@@ -63,7 +63,7 @@ class OrdenController extends BaseController {
         return View::make('Admin.listOrden', 
                         array( 'listOrden' => $listOrden,
                                'listEstatusVenta' => $listEstatusVenta,
-                               'EstatusVentaSelected' => -1,
+                               'EstatusVentaSelected' => (int)$_POST['cmbEstatusVenta'],
                                'feIni' => $feIni,
                                'feFin' => $feFin,
                             ));
@@ -109,6 +109,9 @@ class OrdenController extends BaseController {
                             ));
     }
     
+    /*
+     * funcion para cambiar el estatus de envio/no envio de una orden
+     */
     public function cambioEstadoEnvioOrden()
     {
         if(Request::ajax()){
@@ -132,6 +135,37 @@ class OrdenController extends BaseController {
 			    'detalle' => 'peticion no valida'
 			)); 
         }
+    }
+    
+    /**
+     * Busca e imprime el listado de ordenes en un excel
+     */
+    public function exportarExcel()
+    {        
+        
+        //obtenemos los registros que coincidan con los datos de busqueda          
+        $listOrden = DB::table('corden')
+            ->join('carrocompra', 'corden.idCarroCompra', '=', 'carrocompra.id')
+            ->join('cestatusventa', 'corden.idEstatusVenta', '=', 'cestatusventa.id')
+            ->join('cmoneda', 'carrocompra.idMoneda', '=', 'cmoneda.id') 
+            ->join('ccliente', 'corden.idCliente', '=', 'ccliente.id')
+            ->select('corden.id', 'cestatusventa.dsEstatusVenta', 'corden.mnTransaccion','cmoneda.dsSimbolo',
+                    'ccliente.dsNombre', 'ccliente.dsApellidoPaterno', 'ccliente.dsEmail')
+            ->where('corden.idEstatusVenta', '=', (int)$_GET['idEstatusVentaSelected'])
+//            ->whereBetween('created_at', array(
+//                                        date('Y-m-d',strtotime($_POST['fechaInicio']))." 00:00:00", 
+//                                        date('Y-m-d',strtotime($_POST['fechaFin']))." 23:59:59",))
+            ->get();
+        
+        header('Content-type: application/vnd.ms-excel');
+        header("Content-Disposition: attachment; filename=reporteVentas/Ordenes_".date("d-m-Y",time()).".xls");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+                               
+        return View::make('Admin.listOrdenExcel', 
+                        array( 
+                                'listOrden' => $listOrden
+                            ));
     }
 }
 ?>

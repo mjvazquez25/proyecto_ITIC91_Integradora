@@ -35,6 +35,11 @@
                         <input type="submit" id="aceptar" class="acepto" value="Buscar" style="cursor:pointer;position:relative; width:145px; height:30px; background:#BEC780; border-radius:7px; -moz-border-radius:7px; -webkit-border-radius:7px; text-transform: uppercase;"/>&nbsp;&nbsp;
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="3" align="left">
+                        <input type="button" feIni="{{$feIni}}" feFin="{{$feFin}}" id="btnExportarExcel" idEstatusVentaSelected="{{$EstatusVentaSelected}}" class="acepto" value="Exportar a Excel" style="cursor:pointer;position:relative; width:145px; height:30px; background:#BEC780; border-radius:7px; -moz-border-radius:7px; -webkit-border-radius:7px; text-transform: uppercase;"/>&nbsp;&nbsp;                        
+                    </td>
+                </tr>
             </table>
         </form>
     </div>

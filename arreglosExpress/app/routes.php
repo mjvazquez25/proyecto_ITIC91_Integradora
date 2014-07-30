@@ -93,6 +93,9 @@ Route::post('Admin', 'AuthController@postLogin');
     //ruta Admin Pantalla Ver detalle Orden/Compra
     Route::get('EditarOrden', 'OrdenController@editarOrden');
     
+    //ruta Admin Exportar reporte de ventas a excel
+    Route::get('OrdenExportarExcel', 'OrdenController@exportarExcel');
+    
      //handle para marcar como enviado/no enviado el pedido
     Route::post('UpdateEstatusEnvioOrden', 'OrdenController@cambioEstadoEnvioOrden');
     

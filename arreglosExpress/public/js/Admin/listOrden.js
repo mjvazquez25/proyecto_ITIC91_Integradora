@@ -32,4 +32,10 @@ $(document).ready(function(){
         location.href='EditarOrden?idOrden='+idOrden
     }) 
     
+    $("#btnExportarExcel").click(function(){
+        var feIni = $(this).attr('feIni');
+        var feFin = $(this).attr('feFin');
+        var idEstatusVentaSelected = $(this).attr('idEstatusVentaSelected');
+        location.href='OrdenExportarExcel?feIni='+feIni+'&feFin='+feFin+'&idEstatusVentaSelected='+idEstatusVentaSelected
+    })     
 })
