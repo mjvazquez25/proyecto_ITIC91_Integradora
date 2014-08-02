@@ -1,0 +1,26 @@
+
+#leftPanel {
+    background-color: white;
+    border: 1px solid black;
+    float: left;
+    height: 100%;
+    min-height: 750px;
+    /*overflow: auto;*/
+    padding: 4px;
+    text-align: left;
+    width: 70%;
+    margin-right: 2px
+}
+
+#rightPanel{
+    background-color: white;
+    border: 1px solid black;
+    float: left;
+    font-family: verdana;
+    font-size: 10px;
+    height: 100%;
+    /*overflow: scroll;*/
+    padding: 4px;
+    text-align: left;
+    width: 25%;
+}

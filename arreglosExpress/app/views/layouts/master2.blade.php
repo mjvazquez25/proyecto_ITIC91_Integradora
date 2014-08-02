@@ -77,7 +77,7 @@ Julio 2014
     <div id="menu">
         <ul>
             <li class="menuitem"><a href="#">Inicio</a></li>
-            <li class="menuitem"><a href="#">Galeria</a></li>                
+            <li class="menuitem"><a href="Galeria">Galeria</a></li>                
             <li class="menuitem"><a href="#">Faqs</a></li>                
             <li class="menuitem"><a href="#">Historial Pedidos</a></li>
             <li class="menuitem"><a href="#">Contacto</a></li>

@@ -71,25 +71,19 @@ class OrdenController extends BaseController {
     
     public function editarOrden()
     {
-        $idOrden = (int)$_GET['idOrden'];
-        
+        $idOrden = (int)$_GET['idOrden'];        
         //obtener datos de la orden
-        $Orden = Orden::find($idOrden);
-        
+        $Orden = Orden::find($idOrden);        
         //obtener datos del cliente
-        $Cliente = Cliente::find($Orden->idCliente);
-                
+        $Cliente = Cliente::find($Orden->idCliente);                
         //obtener carro compra de la orden
-        $CarroCompra = CarroCompra::find($Orden->idCarroCompra);
-        
+        $CarroCompra = CarroCompra::find($Orden->idCarroCompra);        
         //obtener direccion de envio
         $Direccion = Direccion::find($CarroCompra->idDireccion);        
         //obtener datos de pago
-        $Pago = Pago::find($idOrden);
-        
+        $Pago = Pago::find($idOrden);        
         //obtener estatus Pago
-        $EstastusPago = EstatusPago::find($Pago->idEstatusPago);
-        
+        $EstastusPago = EstatusPago::find($Pago->idEstatusPago);        
         //obtener carrito de compra
         $Carrito = DB::table('carrocompraproducto')
             ->join('cproducto', 'carrocompraproducto.idProducto', '=', 'cproducto.id')

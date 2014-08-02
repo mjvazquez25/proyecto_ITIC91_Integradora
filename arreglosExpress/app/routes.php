@@ -24,6 +24,8 @@ Route::get('/', function()
 
 Route::get('Usuario', 'UsuariosController@mostrarUsuarios');
 
+Route::get('Galeria', 'GaleriaController@displayProductos');
+
 /****************************
  * 
  *  SECCION DE BACK-END [ADMININISTRADOR]
