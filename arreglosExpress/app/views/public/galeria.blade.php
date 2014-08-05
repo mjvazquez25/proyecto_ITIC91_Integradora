@@ -8,7 +8,8 @@
     
     {{ HTML::script('js/jquery.mousewheel-3.0.4.pack.js'); }}
     {{ HTML::script('js/jquery.fancybox-1.3.4.pack.js'); }}
-    {{ HTML::script('js/galeria.js'); }}
+    {{ HTML::script('js/jquery.blockUI.js'); }}
+    {{ HTML::script('js/galeria.js'); }}    
     
     <h1>Galeria de Productos </h1>
     <br/>
@@ -27,7 +28,7 @@
                                         <img alt="" width='108' height='108' src='uploadImg/{{$listProducto[$i]->dsRuta}}' border="0">
                                     </a>
                                 </div>
-                                <input type='checkbox' name='' value='' onClick=""> {{$listProducto[$i]->dsNombre}} <br/>
+                                <input type='checkbox' name='' value='' id="check-{{$listProducto[$i]->id}}" class="agregaProducto" idProducto='{{$listProducto[$i]->id}}'> {{$listProducto[$i]->dsNombre}} <br/>
                                 <b style="color:red">$ {{$listProducto[$i]->noPrecio}} MXN</b><br/>
                                 <small style="color:white">{{ $toptd++; }}</small>
                             </td>                             
@@ -40,7 +41,7 @@
                                         <img alt="" width='108' height='108' src='uploadImg/{{$listProducto[$i]->dsRuta}}' border="0">
                                     </a>
                                 </div>
-                                <input type='checkbox' name='' value='' onClick=""> {{$listProducto[$i]->dsNombre}} <br/>
+                                <input type='checkbox' name='' id="check-{{$listProducto[$i]->id}}" value='' class="agregaProducto" idProducto='{{$listProducto[$i]->id}}'> {{$listProducto[$i]->dsNombre}} <br/>
                                 <b style="color:red">$ {{$listProducto[$i]->noPrecio}} MXN</b><br/>
                                 <small style="color:white">{{ $toptd=1; }}</small>
                                 </td>                            
@@ -54,6 +55,13 @@
     <div id="rightPanel">
         <h1 style="text-align:center; font-size:13px">CARRITO</h1>
         <hr></hr>
+        <div id="displayCarrito">
+        <div id="cart_block" class="block exclusive">        
+            <div class="block_contentCart">
+                
+            </div>
+        </div>
+        </div>
     </div>
     
 @stop

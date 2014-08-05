@@ -26,6 +26,15 @@ Route::get('Usuario', 'UsuariosController@mostrarUsuarios');
 
 Route::get('Galeria', 'GaleriaController@displayProductos');
 
+Route::post('UpdateCarrito', 'CarritoController@UpdateCarrito');
+
+Route::post('GetCarrito', 'CarritoController@getCarrito');
+
+Route::get('Contacto', function()
+{
+	return View::make('public.contacto');
+});
+
 /****************************
  * 
  *  SECCION DE BACK-END [ADMININISTRADOR]

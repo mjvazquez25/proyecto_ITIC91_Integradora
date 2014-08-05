@@ -76,11 +76,11 @@ Julio 2014
     <!-- menu cliente -->
     <div id="menu">
         <ul>
-            <li class="menuitem"><a href="#">Inicio</a></li>
+            <li class="menuitem"><a href="/">Inicio</a></li>
             <li class="menuitem"><a href="Galeria">Galeria</a></li>                
             <li class="menuitem"><a href="#">Faqs</a></li>                
             <li class="menuitem"><a href="#">Historial Pedidos</a></li>
-            <li class="menuitem"><a href="#">Contacto</a></li>
+            <li class="menuitem"><a href="Contacto">Contacto</a></li>
             <li class="menuitem"><a href="#">Acerca de</a></li>
         </ul>
     </div>

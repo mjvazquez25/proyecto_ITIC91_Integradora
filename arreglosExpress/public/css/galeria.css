@@ -3,7 +3,7 @@
     background-color: white;
     border: 1px solid black;
     float: left;
-    height: 100%;
+    height: 85%;
     min-height: 750px;
     /*overflow: auto;*/
     padding: 4px;
@@ -18,9 +18,87 @@
     float: left;
     font-family: verdana;
     font-size: 10px;
-    height: 100%;
+    height: 85%;
     /*overflow: scroll;*/
     padding: 4px;
     text-align: left;
     width: 25%;
+}
+
+#cart_block dl dt a,
+ #cart_block dl dt span.quantity-formated { float: left;color:black; }
+#cart_block dl { font-size: 0.9em }
+#cart_block dt { padding-top: 0.4em }
+#cart_block dl span.quantity-formated { padding-right: 1px; color:black; }
+#cart_block dt, #cart_block dd {
+	clear: both;
+	margin-top: 0.2em
+}
+#cart_block dt { 
+	width: 175px;
+	text-align: right
+}
+#cart_block dd { width: 155px }
+#cart_block dd { 
+	margin-left: 1em; 
+	margin-right: 1em; 
+	font-style: italic 
+}
+#cart_block dl dt a { font-weight: bold }
+
+.block_contentCart{
+    background-color: white;
+    border-bottom: 1px solid #FF0090;
+    border-left: 1px solid #FF0090;
+    border-right: 1px solid #FF0090;
+    color: black;
+/*    padding: 6px 6px 2px;*/
+    min-height: 16px;
+    margin: 0;
+    font-family: 'Helvetica';
+    font-size: 13px;
+}
+
+.price, .price-shipping, .price-wrapping {
+	color: black;
+	font-size: 1.1em;
+	font-weight: bold;
+	white-space: nowrap
+}
+
+#cart_block p#cart-prices {
+	clear: both;
+	margin-top: 8px;
+	margin-bottom: 2em;
+	display: block;
+	padding-top: 0.4em;
+	border-top: 1px solid white
+}
+
+#cart-buttons{
+    background-color: #ffcc00;
+    height: 2.6em;
+/*    padding-top: 10px;*/
+    padding: 12px 34px 0px 34px;
+    position: relative;
+    text-align: center;
+}
+
+#cart_block p { clear: both }
+#cart_block p span {
+	clear: right;
+	float: left;
+	text-align: right
+}
+#cart_block li { clear: both }
+#cart_block span.price {
+/*	color: white;*/
+        color:black;
+	float: right
+}
+#cart_block dl span.price {
+	font-weight: normal;
+/*	color: white;*/
+        color:black;
+	float: none
 }
