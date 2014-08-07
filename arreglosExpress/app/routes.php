@@ -30,10 +30,21 @@ Route::post('UpdateCarrito', 'CarritoController@UpdateCarrito');
 
 Route::post('GetCarrito', 'CarritoController@getCarrito');
 
+Route::get('DetalleCompra', 'CarritoController@DetalleCompra');
+
+Route::get('DatosCliente', 'CarritoController@DatosCliente');
+
+Route::post('verificaCorreoCliente', 'CarritoController@verificaCorreoCliente');
+
+Route::post('updateDatosCliente', 'ClienteController@updateDatosCliente');
+
 Route::get('Contacto', function()
 {
 	return View::make('public.contacto');
 });
+
+Route::post('GuardaMensaje', 'MensajeContactoController@GuardaMensaje');
+
 
 /****************************
  * 

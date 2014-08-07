@@ -69,6 +69,42 @@ class MensajeContactoController extends BaseController {
         
     }
     
+    /*
+     * guardar nuevo mensaje de contacto
+     */
+    public function GuardaMensaje()
+    {
+        if(Request::ajax()){
+                        
+            $MensajeContacto = new MensajeContacto;
+            $MensajeContacto->dsContenido = trim($_POST['txtComentario']);
+            $MensajeContacto->dsNombre = trim($_POST['txtNombre']);
+            $MensajeContacto->dsApellido = trim($_POST['txtApellido']);
+            $MensajeContacto->dsEmail = trim($_POST['txtEmail']);
+            $MensajeContacto->dsTelefono = trim($_POST['txtTelefono']);
+
+            $res = $MensajeContacto->save();
+                                    
+            if((int)$res == 1){//insert ok                
+                return Response::json(array(
+			    'error' => 0,
+                            'idMensaje' =>$MensajeContacto->id
+			));                 
+            }else{//error en la actualizaion
+                return Response::json(array(
+			    'error' => 1,
+			    'detalle' => 'No se puede enviar el comentario'
+			)); 
+            }
+        }else{
+            return Response::json(array(//no es ajax
+			    'error' => 1,
+			    'detalle' => 'peticion no valida'
+			)); 
+        }
+        
+    }
+    
    
     
 }

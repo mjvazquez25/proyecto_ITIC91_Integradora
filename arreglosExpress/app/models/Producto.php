@@ -20,5 +20,25 @@ class Producto extends Eloquent { //Todos los modelos deben extender la clase El
         return $listProducto;
     }
     
+    /*
+     * devuelve la url del producto
+     */
+    public function getUrlImagen($idProducto)
+    {        
+        
+        $urlImagen = DB::table('cProductoImagen')
+                    ->where('idProducto', '=', (int)$idProducto)
+                    ->where('cnVisible',  '=', 1)
+                    ->get();
+        
+        $url = '';
+        foreach($urlImagen as $img){
+            $url = $img->dsRuta;
+            break;
+        }
+        
+        return $url;
+    }
+    
 }
 ?>

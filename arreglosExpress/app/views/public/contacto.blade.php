@@ -2,6 +2,11 @@
 @extends('layouts.master2')
 
 @section('content')
+
+    {{ HTML::script('js/Validation.js'); }}
+    {{ HTML::script('js/jquery.blockUI.js'); }}
+    {{ HTML::script('js/contacto.js'); }}    
+    
     <h1>Contactanos! </h1>
     
     <br/>
@@ -18,7 +23,7 @@
                 <td align="left">
                     <font color="red" size="3">*</font>
                     <strong class="lblDescripcion">Apellidos:</strong><br/>
-                     <input type="text" name="txtNombre" id="txtNombre" size="65"/>
+                     <input type="text" name="txtApellido" id="txtApellido" size="65"/>
                 </td>
             </tr>
             <tr>                    
@@ -45,7 +50,7 @@
             </tr>
             <tr>                    
                 <td align="center">
-                    <input type="button" id="guardarProducto" class="acepto" value="Enviar" style="cursor:pointer;position:relative; width:145px; height:30px; background:#BEC780; border-radius:7px; -moz-border-radius:7px; -webkit-border-radius:7px; text-transform: uppercase;"/>&nbsp;&nbsp;
+                    <input type="button" id="enviarComentario" class="acepto" value="Enviar" style="cursor:pointer;position:relative; width:145px; height:30px; background:#BEC780; border-radius:7px; -moz-border-radius:7px; -webkit-border-radius:7px; text-transform: uppercase;"/>&nbsp;&nbsp;
                 </td>
             </tr>
         </table>

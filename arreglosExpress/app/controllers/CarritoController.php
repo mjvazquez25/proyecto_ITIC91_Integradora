@@ -50,6 +50,51 @@ class CarritoController extends BaseController {
         }
     }
     
+    /*
+     * verificar si el correo ya esta registrado, 
+     * si la respuesta es true => devolver todos los datos del cliente
+     */
+    
+    public function verificaCorreoCliente()
+    {
+        if(Request::ajax()){     
+            
+            $dsCorreo = trim($_POST['dsCorreoElectronico']);
+            
+            $Cliente = Cliente::where("dsEmail","=",$dsCorreo)->get();
+                        
+            $cnExiste = 0;
+            $dataCliente = array();
+            if(count($Cliente)>0){
+                $i=0;
+                foreach($Cliente as $client){
+                    $dataCliente[$i]['idCliente'] = $client->id;
+                    $dataCliente[$i]['dsNombre'] = $client->dsNombre;
+                    $dataCliente[$i]['dsApellidoPaterno'] = $client->dsApellidoPaterno;
+                    $dataCliente[$i]['dsApellidoMaterno'] = $client->dsApellidoMaterno;
+                    $dataCliente[$i]['dsApellidoMaterno'] = $client->dsApellidoMaterno;
+                    break;
+                }
+                
+                $cnExiste = 1;
+            }
+            
+            return Response::json(array(
+                        'error' => 0,
+                        'cnExiste' => $cnExiste,
+                        'dataCliente' => $dataCliente
+                    ));           
+        }else{
+            return Response::json(array(//no es ajax
+			    'error' => 1,
+			    'detalle' => 'peticion no valida'
+			)); 
+        }
+    }
+    
+    /*
+     * retorna listado de productos, cuando es una peticion ajax
+     */
     public function getCarrito()
     {
         if(Request::ajax()){     
@@ -63,6 +108,60 @@ class CarritoController extends BaseController {
 			    'detalle' => 'peticion no valida'
 			)); 
         }
+    }
+    
+    /*
+     * muestra el detalle de la compra
+     */
+    public function DetalleCompra()
+    {
+        $listProducto = $this->getProductoInCarrito();
+        $Producto = new Producto();
+        
+        $noTotal = 0;
+        
+        //hacer sumatoria precio
+        foreach($listProducto as $item)
+        {
+            $noTotal += $item['noPrecio'];
+        }
+        
+        $noTotal = number_format($noTotal);
+        
+        //pasar los parametros a la vista
+        return View::make('public.detallecompra', 
+                        array( 
+                                'listproducto' => $listProducto,
+                                'Producto' => $Producto,
+                                'noTotal' => $noTotal
+                            ));
+    }
+    
+    /*
+     * solicitar datos del cliente
+     */
+    public function DatosCliente()
+    {
+//        $listProducto = $this->getProductoInCarrito();
+//        $Producto = new Producto();
+//        
+//        $noTotal = 0;
+        
+        //hacer sumatoria precio
+//        foreach($listProducto as $item)
+//        {
+//            $noTotal += $item['noPrecio'];
+//        }
+//        
+//        $noTotal = number_format($noTotal);
+        
+        //pasar los parametros a la vista
+        return View::make('public.datoscliente', 
+                        array( 
+//                                'listproducto' => $listProducto,
+//                                'Producto' => $Producto,
+//                                'noTotal' => $noTotal
+                            ));
     }
     
     /*

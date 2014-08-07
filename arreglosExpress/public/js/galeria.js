@@ -116,7 +116,7 @@ function armarCarrito(list)
             + "</div>"
     + "</div>"
     + "<div id='cart-buttons' >"
-               + "<a href='' id='button_order_cart' class='exclusive' title='Confirmar'>Confirmar</a>"
+               + "<a href='DetalleCompra' title='Confirmar' style='text-decoration:none'> <strong>Confirmar</strong></a>"
     + "</div>";
 
     $(".block_contentCart").html(HtmlCarrito)
