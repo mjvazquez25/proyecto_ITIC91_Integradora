@@ -78,12 +78,16 @@
                             <td><strong>Email:</strong> <label id="lblEmailCliente">xxx</label></td>
                         </tr>
                         <tr>
+                            <td><br/><br/></td>
+                        </tr>
+                        <tr>
                             <td>
                                 Elije una direccion de entrega: 
                                 <select id="cmbDirecciones" name="cmbDirecciones">
                                 </select>
                                  <br/>
                                  <input type="button" value="Agregar Direccion" id="btnNuevaDireccion" />
+                                 <br/><br/>
                             </td>
                         </tr>
                         <tr class="trNuevaDireccion">
@@ -110,24 +114,28 @@
                                     <tr>                    
                                         <td align="center">
                                             <strong class="lblDescripcion">Codigo Postal:</strong><br/>      
-                                            <input type="text" name="txtCodigoPostal" id="txtCodigoPostal" value="" size="45"/>
+                                            <input type="text" name="txtCodigoPostal" id="txtCodigoPostal" value="" size="45"/><br/>
+                                            <small style="color:red">Solo n&uacute;meros</small>
                                         </td>
                                     </tr>
                                     <tr>                    
                                         <td align="center">
                                             <strong class="lblDescripcion">Telefono:</strong><br/>      
-                                            <input type="text" name="txtTelefono" id="txtTelefono" value="" size="45"/>
+                                            <input type="text" name="txtTelefono" id="txtTelefono" value="" size="45"/><br/>
+                                            <small style="color:red">Solo n&uacute;meros</small>
                                         </td>
                                     </tr>
                                     <tr>                    
                                         <td align="center">
                                             <strong class="lblDescripcion">Telefono celular:</strong><br/>      
-                                            <input type="text" name="txtTelefonoCelular" id="txtTelefonoCelular" value="" size="45"/>
+                                            <input type="text" name="txtTelefonoCelular" id="txtTelefonoCelular" value="" size="45"/><br/>
+                                            <small style="color:red">Solo n&uacute;meros</small>
                                         </td>
                                     </tr>
                                     <tr>                    
                                         <td align="center">
-                                            <br/>
+                                            <br/>                                            
+                                            <input type="hidden" value="" id="cmdDireccion" name="cmdDireccion"/>
                                             <input type="button" value="Guardar Direccion" id="btnGuardarDireccion" />
                                         </td>
                                     </tr>
@@ -139,7 +147,7 @@
             </tr>
             <tr id="trContinuar" style="display: none">                    
                 <td align="center">
-                    <input type="button" id="btnContinuar" value="Continuar" onclick="location.href='DatosCliente'" style="cursor:pointer;position:relative; width:145px; height:30px; background:#BEC780; border-radius:7px; -moz-border-radius:7px; -webkit-border-radius:7px; text-transform: uppercase;"/>&nbsp;&nbsp;
+                    <input type="button" id="btnContinuar" value="Continuar con la compra" style="cursor:pointer;position:relative;  height:30px; background:#BEC780; border-radius:7px; -moz-border-radius:7px; -webkit-border-radius:7px; text-transform: uppercase;"/>&nbsp;&nbsp;
                 </td>
             </tr>
         </table>

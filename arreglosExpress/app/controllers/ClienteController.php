@@ -58,6 +58,89 @@ class ClienteController extends BaseController {
     }
     
     /*
+     * obtener informacion de direccion
+     */
+    public function getDataDireccion()
+    {
+        if(Request::ajax()){ 
+            $idDireccion = (int)$_POST['idDireccion'];
+            $Direccion = Direccion::find($idDireccion);
+            
+            $dataDireccion = array(
+                'dsCalle' => $Direccion->dsCalle,
+                'dsColonia' => $Direccion->dsColonia,
+                'dsCodigoPostal' => $Direccion->dsCodigoPostal,
+                'dsCiudad' => $Direccion->dsCiudad,
+                'dsTelefono' => $Direccion->dsTelefono,
+                'dsTelefonoMobile' => $Direccion->dsTelefonoMobile,
+            );
+            
+            return Response::json(array(//no es ajax
+			    'error' => 0,
+			    'dataDireccion' => $dataDireccion
+			)); 
+            
+        }else{
+            return Response::json(array(//no es ajax
+			    'error' => 1,
+			    'detalle' => 'peticion no valida'
+			)); 
+        }
+    }
+    
+    /*
+     * guardar direccion de entrega del cliente
+     */
+    public function guardaDireccion()
+    {
+        if(Request::ajax()){    
+            
+            $idCliente = Session::get('idCliente');
+            $res = 0;
+            
+             //evaluar accion
+            if(trim($_POST['cmd'])=='add'){ //insert
+                $Direccion = new Direccion;
+                $Direccion->dsCalle = trim($_POST['txtCalle']);
+                $Direccion->dsColonia = trim($_POST['txtColonia']);
+                $Direccion->dsCodigoPostal = trim($_POST['txtCodigoPostal']);
+                $Direccion->dsCiudad = trim($_POST['txtCiudad']);
+                $Direccion->dsTelefono = trim($_POST['txtTelefono']);
+                $Direccion->dsTelefonoMobile = trim($_POST['txtTelefonoCelular']);
+                $Direccion->idCliente = (int)$idCliente;
+                $res = $Direccion->save();
+            }else{//update
+                $Direccion = Direccion::find((int)$_POST['idDireccion']);//idDireccion
+                $Direccion->dsCalle = trim($_POST['txtCalle']);
+                $Direccion->dsColonia = trim($_POST['txtColonia']);
+                $Direccion->dsCodigoPostal = trim($_POST['txtCodigoPostal']);
+                $Direccion->dsCiudad = trim($_POST['txtCiudad']);
+                $Direccion->dsTelefono = trim($_POST['txtTelefono']);
+                $Direccion->dsTelefonoMobile = trim($_POST['txtTelefonoCelular']);
+                $res = $Direccion->save();
+            }
+            
+            if((int)$res == 1){//insert ok     
+                return Response::json(array(//no es ajax
+			    'error' => 0,
+			    'idDireccion' => $Direccion->id,
+			)); 
+            }else{
+                return Response::json(array(//no es ajax
+			    'error' => 1,
+			    'detalle' => 'No se pudo guardar la direccion'
+			)); 
+            }
+        
+        }else{
+            return Response::json(array(//no es ajax
+			    'error' => 1,
+			    'detalle' => 'peticion no valida'
+			)); 
+        }
+    }
+    
+    /*
      * actualizar / insertar datos del cliente
      */
     public function updateDatosCliente()

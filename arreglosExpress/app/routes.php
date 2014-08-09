@@ -38,6 +38,17 @@ Route::post('verificaCorreoCliente', 'CarritoController@verificaCorreoCliente');
 
 Route::post('updateDatosCliente', 'ClienteController@updateDatosCliente');
 
+Route::post('guardaDireccion', 'ClienteController@guardaDireccion');
+
+Route::post('getDataDireccion', 'ClienteController@getDataDireccion');
+
+Route::get('ResumenPedido', 'CarritoController@ResumenPedido');
+
+Route::post('guardaDireccionCarrito', 'CarritoController@guardaDireccionCarrito');
+
+Route::get('CreaFormularioDePago', 'CarritoController@CreaFormularioDePago');
+
+
 Route::get('Contacto', function()
 {
 	return View::make('public.contacto');

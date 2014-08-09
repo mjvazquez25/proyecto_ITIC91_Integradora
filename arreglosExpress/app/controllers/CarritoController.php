@@ -24,7 +24,7 @@ class CarritoController extends BaseController {
                 $res = $CarroCompra->save();
 
                 if((int)$res == 1){//insert ok     
-                    print_r($CarroCompra->id);
+                    //print_r($CarroCompra->id);
                     Session::put('idCarroCompra', $CarroCompra->id);
                     
                     $todoOk = $this->updateCarroCompraProducto((int)$_POST['idProducto'],(int)$_POST['flagAgrega']);   
@@ -141,29 +141,113 @@ class CarritoController extends BaseController {
      * solicitar datos del cliente
      */
     public function DatosCliente()
-    {
-//        $listProducto = $this->getProductoInCarrito();
-//        $Producto = new Producto();
-//        
-//        $noTotal = 0;
+    {        
         
-        //hacer sumatoria precio
-//        foreach($listProducto as $item)
-//        {
-//            $noTotal += $item['noPrecio'];
-//        }
-//        
-//        $noTotal = number_format($noTotal);
-        
-        //pasar los parametros a la vista
         return View::make('public.datoscliente', 
                         array( 
-//                                'listproducto' => $listProducto,
-//                                'Producto' => $Producto,
-//                                'noTotal' => $noTotal
                             ));
     }
     
+    /*
+     * vista de pago paypal.. redirecionar a paypal pruebas
+     */
+    public function CreaFormularioDePago()
+    {
+        return View::make('public.paypalpre', 
+                        array( 
+                            ));
+    }
+    
+    
+    /*
+     * pintar resumen de compra
+     */
+    public function ResumenPedido()
+    {
+        /*
+         * obtener datos del cliente
+         */        
+        $idCliente = Session::get('idCliente');
+        $Cliente = Cliente::find((int)$idCliente); 
+        
+        /*
+         * obtener direccion de envio
+         */
+        $idDireccion = Session::get('idDireccion');
+        $Direccion = Direccion::find((int)$idDireccion);
+                
+        /*
+         * obtener productos en carrito
+         */
+        $listProductos = $this->getProductoInCarrito();
+//        print_r($listProductos); die();
+        $Producto = new Producto();
+        
+         $noTotal = 0;
+        
+        //hacer sumatoria precio
+        foreach($listProductos as $item)
+        {
+            $noTotal += $item['noPrecio'];
+        }
+        
+        $noTotal = number_format($noTotal);
+        
+        return View::make('public.resumencompra', 
+                        array( 
+                            'Cliente' => $Cliente,
+                            'Direccion' => $Direccion,
+                            'listProducto' => $listProductos,
+                            'Producto' => $Producto,
+                            'noTotal' => number_format($noTotal,2)
+                            ));
+    }
+    
+    /*
+     * actualizar los datos del carrito
+     * asignar id direccion de envio y guardar id en sesion
+     */
+    public function guardaDireccionCarrito()
+    {        
+        if(Request::ajax()){     
+            
+            $idDireccion = (int)$_POST['idDireccion'];
+            Session::put('idDireccion', $idDireccion);
+
+            //actualizar carrito
+             if (Session::has('idCarroCompra'))
+             {
+                 $idCarroCompra = Session::get('idCarroCompra');
+                 $idCliente = Session::get('idCliente');
+                 
+                 $res = CarroCompra::where('id', (int)$idCarroCompra)
+                      ->update(array('idDireccion' => (int)$idDireccion, 'idCliente'=>(int)$idCliente));
+                        
+                if((int)$res == 1){//actualizacion ok                
+                    return Response::json(array(
+                                'error' => 0
+                            ));                 
+                }else{//error en la actualizaion
+                    return Response::json(array(
+                                'error' => 1,
+                                'detalle' => 'No se puedo actualizar el registro'
+                            )); 
+                }  
+                 
+             }else{
+              return Response::json(array(
+                        'error' => 1,
+                        'detalle' =>'No existe el carrito, por favor regrese al paso 1'
+                    ));    
+             }                      
+        }else{
+            return Response::json(array(//no es ajax
+			    'error' => 1,
+			    'detalle' => 'peticion no valida'
+			)); 
+        }
+    }
+            
     /*
      * eliminar o insertar registros en el carrito de compra
      */
@@ -222,7 +306,7 @@ class CarritoController extends BaseController {
         $listCarroCompraSource = DB::table('carrocompra')
             ->join('carrocompraproducto', 'carrocompra.id', '=', 'carrocompraproducto.idCarroCompra')
             ->join('cproducto', 'carrocompraproducto.idProducto', '=', 'cproducto.id')
-            ->select('carrocompraproducto.noCantidad','cproducto.dsNombre','cproducto.noPrecio','cproducto.id')
+            ->select('carrocompraproducto.id as idcp','carrocompraproducto.noCantidad','cproducto.dsNombre','cproducto.noPrecio','cproducto.id')
             ->where('carrocompra.id','=',(int)$idCarroCompra)
             ->get();
         
@@ -230,6 +314,7 @@ class CarritoController extends BaseController {
         
         $i = 0;
         foreach($listCarroCompraSource as $car){
+            $listCarroCompra[$i]['idCarroCompraProducto'] =  $car->idcp;
             $listCarroCompra[$i]['idProducto'] =  $car->id;
             $listCarroCompra[$i]['noCantidad'] =  $car->noCantidad;
             $listCarroCompra[$i]['dsNombre'] =  $car->dsNombre;
