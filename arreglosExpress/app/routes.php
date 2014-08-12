@@ -48,6 +48,7 @@ Route::post('guardaDireccionCarrito', 'CarritoController@guardaDireccionCarrito'
 
 Route::get('CreaFormularioDePago', 'CarritoController@CreaFormularioDePago');
 
+Route::get('validationPaypal', 'CarritoController@validationPaypal');
 
 Route::get('Contacto', function()
 {

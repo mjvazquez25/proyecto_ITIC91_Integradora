@@ -153,8 +153,42 @@ class CarritoController extends BaseController {
      */
     public function CreaFormularioDePago()
     {
+        /*
+         * obtener datos del cliente
+         */        
+        $idCliente = Session::get('idCliente');
+        $Cliente = Cliente::find((int)$idCliente); 
+        
+        /*
+         * obtener direccion de envio
+         */
+        $idDireccion = Session::get('idDireccion');
+        $Direccion = Direccion::find((int)$idDireccion);
+                
+        /*
+         * obtener productos en carrito
+         */
+        $listProductos = $this->getProductoInCarrito();
+        
+        $noTotal = 0;
+        
+        //hacer sumatoria precio
+        foreach($listProductos as $item)
+        {
+            $noTotal += $item['noPrecio'];
+        }
+        
+        $noTotal = number_format($noTotal);
+        
+        $idCarroCompra = Session::get('idCarroCompra');
+        
         return View::make('public.paypalpre', 
                         array( 
+                            'Cliente' => $Cliente,
+                            'Direccion' => $Direccion,
+                            'listProducto' => $listProductos,
+                            'noTotal' => number_format($noTotal,2),
+                            'idCarroCompra' => (int)$idCarroCompra
                             ));
     }
     
@@ -201,6 +235,90 @@ class CarritoController extends BaseController {
                             'Producto' => $Producto,
                             'noTotal' => number_format($noTotal,2)
                             ));
+    }
+    
+    /*
+     * validacion de pago paypal
+     */
+    public function validationPaypal()
+    {
+        $errors = '';
+        $result = false;
+
+        // Fill params
+        $params = 'cmd=_notify-validate';
+        foreach ($_POST AS $key => $value)
+                $params .= '&'.$key.'='.urlencode(stripslashes($value));
+
+        // PayPal Server
+        $paypalServer = 'www.sandbox.paypal.com';//pruebas
+//        $paypalServer = 'www.paypal.com';//live
+
+        // Getting PayPal data...
+        if (function_exists('curl_exec'))
+        {
+                // curl ready
+                $ch = curl_init('https://' . $paypalServer . '/cgi-bin/webscr');
+
+                // If the above fails, then try the url with a trailing slash (fixes problems on some servers)
+                if (!$ch)
+                        $ch = curl_init('https://' . $paypalServer . '/cgi-bin/webscr/');
+
+                if (!$ch)
+                        $errors .= "error de conexion";
+                else
+                {
+                        curl_setopt($ch, CURLOPT_POST, true);
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_HEADER, false);
+                        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+                        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                        $result = curl_exec($ch);
+                        if (strtoupper($result) != 'VERIFIED')
+                                $errors .= $result.' cURL error:'.curl_error($ch);
+                        curl_close($ch);
+                }
+        }
+        elseif (($fp = @fsockopen('ssl://' . $paypalServer, 443, $errno, $errstr, 30)) || ($fp = @fsockopen($paypalServer, 80, $errno, $errstr, 30)))
+        {
+                // fsockopen ready
+                $header = 'POST /cgi-bin/webscr HTTP/1.0'."\r\n" .
+                  'Host: '.$paypalServer."\r\n".
+                  'Content-Type: application/x-www-form-urlencoded'."\r\n".
+                  'Content-Length: '.Tools::strlen($params)."\r\n".
+                  'Connection: close'."\r\n\r\n";
+                fputs($fp, $header.$params);
+
+                $read = '';
+                while (!feof($fp))
+                {
+                        $reading = trim(fgets($fp, 1024));
+                        $read .= $reading;
+                        if (strtoupper($reading) == 'VERIFIED' OR strtoupper($reading) == 'INVALID')
+                        {
+                                $result = $reading;
+                                break;
+                        }
+                }
+                if (strtoupper($result) != 'VERIFIED')
+                        $errors .= $result;
+                fclose($fp);
+        }
+
+        //Transaccion OK
+        if (strtoupper($result) == 'VERIFIED')
+        {
+            //si llega aqui todo ok
+            /*
+             * insertar registro de pago y venta
+             */
+        }else{
+            //pago no aceptado
+            /*
+             * 
+             */
+        }
     }
     
     /*
