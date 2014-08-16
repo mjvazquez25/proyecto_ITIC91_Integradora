@@ -12,6 +12,7 @@ body {
 	background: #EEEFE4;
 	background-image:url(../img/fondo10.png);
 	background-repeat:repeat-x;
+        background-repeat: repeat-y;
 }
 *
 {

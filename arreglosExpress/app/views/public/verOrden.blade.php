@@ -1,13 +1,9 @@
-@extends('layouts.masterAdmin')
+
+@extends('layouts.master2')
 
 @section('content')
-        
-    {{ HTML::script('js/jquery.blockUI.js'); }}
-    {{ HTML::script('js/Admin/detalleOrden.js'); }}
-    
-    <!-- <div style="margin-top:5px;">    -->
-        <h1 style="text-align:center">Detalle Orden</h1>        
-    <!-- </div> -->
+    <h1 style="text-align:center">Detalle Orden</h1>    
+
     <br/>
         <table id="tbNormal" border="0" style=" width: 100%; border-collapse: separate;border-spacing:12px; border:1px solid black">
             <tr bgcolor="#399"  style="color:white"> 
@@ -102,7 +98,7 @@
                         <tr>
                             <th>Cantidad</th>
                             <th>Producto</th>
-                            <th></th>
+                             <th></th>
                         </tr>
                         @if (count($Carrito) > 0)
                             @foreach($Carrito as $car)
@@ -122,21 +118,6 @@
                     </table>                    
                </td>
             </tr>
-            <!-- Si el estatus del pago es aprobado :: mostrar opcio de ENVIO / NO ENVIO -->
-            @if ($Pago[0]->idEstatusPago == 1)
-                <tr bgcolor="#399"  style="color:white"> 
-                    <th  align='center'>
-                        Estatus del env&iacute;o
-                    </th>
-                </tr>
-                <tr>                    
-                    <td align="center">
-                        <strong class="lblDescripcion">El pedido esta como: &nbsp;</strong>                         
-                         <input type="radio" class="rdbEntregado" name="rdbEntregado" @if ($Orden->cnEnviado == 1) checked @endif value="1"/><label>Entregado</label> &nbsp;&nbsp;
-                        <input type="radio" class="rdbEntregado" name="rdbEntregado"  @if ($Orden->cnEnviado == 0) checked @endif value="0"/><label>No Entregado</label> &nbsp;&nbsp;
-                        <input type="hidden" id="idOrden" value="{{$idOrden}}"
-                    </td>
-                </tr>
-            @endif  
         </table>
+    
 @stop

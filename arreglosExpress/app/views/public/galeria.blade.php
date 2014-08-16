@@ -25,10 +25,10 @@
                             <td>                                
                                 <div style="width:108px; height:108px; padding: 3px; background:#FFFFFF; margin: 2px">
                                     <a href='uploadImg/{{$listProducto[$i]->dsRuta}}' rel='group' title='{{$listProducto[$i]->dsDescripcion}}'>
-                                        <img alt="" width='108' height='108' src='uploadImg/{{$listProducto[$i]->dsRuta}}' border="0">
+                                        <img alt="" width='108' height='108' src='uploadImg/{{$listProducto[$i]->dsRuta}}' title="{{$listProducto[$i]->dsNombre}}" border="0">
                                     </a>
                                 </div>
-                                <input type='checkbox' name='' value='' id="check-{{$listProducto[$i]->id}}" class="agregaProducto" idProducto='{{$listProducto[$i]->id}}'> {{$listProducto[$i]->dsNombre}} <br/>
+                                <input type='checkbox' name='' value='' id="check-{{$listProducto[$i]->id}}" class="agregaProducto" idProducto='{{$listProducto[$i]->id}}'> {{ Str::limit($listProducto[$i]->dsNombre,15)}}. <br/>
                                 <b style="color:red">$ {{$listProducto[$i]->noPrecio}} MXN</b><br/>
                                 <small style="color:white">{{ $toptd++; }}</small>
                             </td>                             
@@ -38,10 +38,10 @@
                                 <td>
                                     <div style="width:108px; height:108px; padding: 3px; background:#FFFFFF; margin: 2px">
                                     <a href='uploadImg/{{$listProducto[$i]->dsRuta}}' rel='group' title='{{$listProducto[$i]->dsDescripcion}}'>
-                                        <img alt="" width='108' height='108' src='uploadImg/{{$listProducto[$i]->dsRuta}}' border="0">
+                                        <img alt="" width='108' height='108' src='uploadImg/{{$listProducto[$i]->dsRuta}}' title="{{$listProducto[$i]->dsNombre}}" border="0">
                                     </a>
                                 </div>
-                                <input type='checkbox' name='' id="check-{{$listProducto[$i]->id}}" value='' class="agregaProducto" idProducto='{{$listProducto[$i]->id}}'> {{$listProducto[$i]->dsNombre}} <br/>
+                                <input type='checkbox' name='' id="check-{{$listProducto[$i]->id}}" value='' class="agregaProducto" idProducto='{{$listProducto[$i]->id}}'> {{ Str::limit($listProducto[$i]->dsNombre,15)}}. <br/>
                                 <b style="color:red">$ {{$listProducto[$i]->noPrecio}} MXN</b><br/>
                                 <small style="color:white">{{ $toptd=1; }}</small>
                                 </td>                            

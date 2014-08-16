@@ -1,13 +1,13 @@
 <?php 
 class Producto extends Eloquent { //Todos los modelos deben extender la clase Eloquent
-    protected $table = 'cproducto';
+    protected $table = 'cProducto';
     
     /*
      * Obtener listado de productos mediante filtros
      */
     public function getListByFiltro($data)
     {        
-        $listProducto = DB::table('cproducto')
+        $listProducto = DB::table('cProducto')
                     ->where('dsNombre', 'like', '%'.trim($data['dsNombreProducto']).'%')
                     ->where('cnActivo',1)
                     ->whereBetween('created_at', array(

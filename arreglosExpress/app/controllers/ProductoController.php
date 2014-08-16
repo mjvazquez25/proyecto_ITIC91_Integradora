@@ -123,6 +123,10 @@ class ProductoController extends BaseController {
             
             if (copy($tempFile,$targetFile)){//copy a la carpeta del servidor
                 
+                ProductoImagen::where('idProducto', (int)$_POST['idProducto'])
+                      ->update(array('cnVisible' => 0));
+                        
+
                 $ProductoImagen = new ProductoImagen;
                 $ProductoImagen->dsRuta = $file_name;
                 $ProductoImagen->idProducto = (int)$_POST['idProducto'];

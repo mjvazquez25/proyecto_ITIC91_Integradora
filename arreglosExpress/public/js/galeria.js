@@ -98,7 +98,7 @@ function armarCarrito(list)
                             + "</dt>"
                             + "<div style='width: 100%;min-height:1px;background-color:#ff0099'></div>";
 
-        noTotalPrecio += list[i].noPrecio;
+        noTotalPrecio = noTotalPrecio + parseFloat(list[i].noPrecio);
         //set checks enabled
         $("#check-"+list[i].idProducto).attr('checked', true);
 

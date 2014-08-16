@@ -80,12 +80,12 @@ Julio 2014
     <!-- menu cliente -->
     <div id="menu">
         <ul>
-            <li class="menuitem"><a href="/">Inicio</a></li>
+            <li class="menuitem"><a href="Inicio">Inicio</a></li>
             <li class="menuitem"><a href="Galeria">Galeria</a></li>                
-            <li class="menuitem"><a href="#">Faqs</a></li>                
-            <li class="menuitem"><a href="#">Historial Pedidos</a></li>
+            <li class="menuitem"><a href="Faqs">Faqs</a></li>                
+            <li class="menuitem"><a href="Historial">Historial Pedidos</a></li>
             <li class="menuitem"><a href="Contacto">Contacto</a></li>
-            <li class="menuitem"><a href="#">Acerca de</a></li>
+            <li class="menuitem"><a href="AcercaDe">Acerca de</a></li>
         </ul>
     </div>
     
@@ -97,9 +97,9 @@ Julio 2014
 
 <!-- footer de la pagina -->
 <div class="footer_txt" style="background:url('img/Background-brown.png') center no-repeat;">
-    <a href="#" class="Menu_pie_pagina">Faqs</a> 
-    | <a href="#" class="Menu_pie_pagina">Contacto</a>&nbsp;|&nbsp;
-    <a href="#" class="Menu_pie_pagina">Acerca de</a>&nbsp;&nbsp;<br />
+    <a href="Faqs" class="Menu_pie_pagina">Faqs</a> 
+    | <a href="Contacto" class="Menu_pie_pagina">Contacto</a>&nbsp;|&nbsp;
+    <a href="AcercaDe" class="Menu_pie_pagina">Acerca de</a>&nbsp;&nbsp;<br />
     <span style="color:#000">
         Tel&eacute;fono: 01 800 343 8959  Lunes a Viernes de 9:00 a.m. a 7:00 p.m. S&aacute;bado: 9:00 am a 2:00 pm<br />
         Cancun, Q. Roo. C.P. 77710.<br />

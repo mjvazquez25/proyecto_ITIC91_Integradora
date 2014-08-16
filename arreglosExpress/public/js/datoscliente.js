@@ -187,7 +187,7 @@ $(document).ready(function(){
                 idDireccion: $("#cmbDirecciones option:selected").val()
             },
             function(data){
-                console.log(data)
+                //console.log(data)
                 if(data.error==1){//error                    
                     alert(data.detalle);
                 }else{//ok 

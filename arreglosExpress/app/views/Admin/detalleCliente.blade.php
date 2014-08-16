@@ -31,12 +31,17 @@
                     <table style=" width: 100%">
                         <tr>
                             <td>
+                                <div id="tabs">
+                                   <div id="tabs">
                                 @if (count($Direccion) > 0)
+                                        <ul>
+                                        @foreach($Direccion as $direccion)                                        
+                                                <li><a href="#tabs-{{$direccion->id}}">{{$direccion->dsColonia}}</a></li>                                          
+                                         @endforeach
+                                         </ul>
                                     @foreach($Direccion as $direccion)
-                                        <div id="tabs">
-                                            <ul>
-                                              <li><a href="#tabs-{{$direccion->id}}">{{$direccion->dsColonia}}</a></li>
-                                            </ul>
+                                       
+                                            
                                             <div id="tabs-{{$direccion->id}}">
                                               <p>
                                                   <strong class="lblDescripcion">Calle: &nbsp;</strong>
@@ -62,10 +67,10 @@
                                                   <strong class="lblDescripcion">Telefono Celular: &nbsp;</strong>
                                                   <label>{{$direccion->dsTelefonoMobile}}</label>
                                               </p>
-                                            </div>
-                                          </div>                                    
+                                            </div>                                                                           
                                     @endforeach 
                                 @endif   
+                                </div>   
                             </td>
                         </tr>
                     </table>

@@ -49,6 +49,7 @@
         <thead>
 		<tr bgcolor="#399">
                     <th>Orden</th>
+                    <th>Estatus</th>
                     <th>Cliente</th>
                     <th>Email</th>
                     <th>Importe</th>                
@@ -60,6 +61,7 @@
                 @foreach($listOrden as $orden)
                        <tr>                            
                            <td align="center"><font face='verdana' size='1'>{{$orden->id}}</font></td>                           
+                           <td align="center"><font face='verdana' size='1'>{{$orden->dsEstatusVenta}}</font></td>       
                            <td align="center"><font face='verdana' size='1'>{{$orden->dsNombre. ' ' .$orden->dsApellidoPaterno}}</font></td>         
                            <td align="center"><font face='verdana' size='1'>{{$orden->dsEmail}}</font></td>       
                            <td align="center"><font face='verdana' size='2'>$ {{ number_format($orden->mnTransaccion,2,'.','') }} {{$orden->dsSimbolo}}</font></td>                     

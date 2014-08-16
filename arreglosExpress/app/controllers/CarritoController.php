@@ -149,6 +149,21 @@ class CarritoController extends BaseController {
     }
     
     /*
+     * vista de paypal pago satisfactorio
+     */
+    public function PaypalResponse()
+    {        
+        //eliminar variables de sesion
+        Session::forget('idCarroCompra');
+        Session::forget('idDireccion');
+//        Session::forget('idCliente');
+        
+        return View::make('public.paypalresponse', 
+                        array( 
+                            ));
+    }
+    
+    /*
      * vista de pago paypal.. redirecionar a paypal pruebas
      */
     public function CreaFormularioDePago()
@@ -181,7 +196,9 @@ class CarritoController extends BaseController {
         $noTotal = number_format($noTotal);
         
         $idCarroCompra = Session::get('idCarroCompra');
-        
+        $paginaRetorno = basename($_SERVER[ "PHP_SELF"]);                             
+//        echo Request::url();
+//        die();
         return View::make('public.paypalpre', 
                         array( 
                             'Cliente' => $Cliente,
@@ -197,7 +214,7 @@ class CarritoController extends BaseController {
      * pintar resumen de compra
      */
     public function ResumenPedido()
-    {
+    {   
         /*
          * obtener datos del cliente
          */        
@@ -242,6 +259,14 @@ class CarritoController extends BaseController {
      */
     public function validationPaypal()
     {
+//        $from = "customerservice@arreglosexpress.velozservers.com"; // sender
+//            $subject = "Prueba";
+//            $message = "Mensaje de prueba:: Llego al metodo";
+//            // message lines should not exceed 70 characters (PHP rule), so wrap it
+//            $message = wordwrap($message, 70);
+//            // send mail
+//            mail("manuel_ca7@outlook.com",$subject,$message,"From: $from\n");
+            
         $errors = '';
         $result = false;
 
@@ -312,12 +337,83 @@ class CarritoController extends BaseController {
             //si llega aqui todo ok
             /*
              * insertar registro de pago y venta
-             */
-        }else{
-            //pago no aceptado
+             */            
+            $idCarroCompra = (int)$_POST['custom'];
+        
+            $CarroCompra = CarroCompra::find((int)$idCarroCompra); 
+            $Cliente = Cliente::find((int)$CarroCompra->idCliente);
+        
+            //guardar orden
+            $Orden = new Orden;
+            $Orden->mnTransaccion = (float)($_POST['mc_gross']);
+            $Orden->noTipoCambio = 13; //obsoleto -- por default 13
+            $Orden->idCarroCompra = (int)$idCarroCompra;
+            $Orden->idCliente = (int)$CarroCompra->idCliente;
+            $Orden->idEstatusVenta = 1;//pagada
+            $Orden->idIdioma = 1;//por default 1
+            $Orden->save();
+
+            //insertar pago
+            $Pago = new Pago;
+            $Pago->noImporte = (float)($_POST['mc_gross']);
+            $Pago->dsIdentificadorPagoPaypal = trim($_POST['txn_id']);
+            $Pago->dsMonedaPago = trim($_POST['mc_currency']);
+            $Pago->dsCorreoComprador = trim($_POST['payer_email']);
+            $Pago->idMoneda = 1;//por default 1
+            $Pago->idOrden = (int)$Orden->id;
+            $Pago->idEstatusPago =  1; //1 aprovado
+            $Pago->save();
+            
+           // enviar correo de notificacion al cliente            
+            $from = "customerservice@arreglosexpress.velozservers.com"; // sender
+            $subject = "Compra Exitosa!. Arreglos Express";
+            $message = "COMPRA EXITOSA! <br> \n";
+            $message .= "Gracias por comprar con nosotros! <br> \n";
+            $message .= "Su pedido sera enviado lo mas pronto posible. <br> \n";
+            $message .= "Puede ver el detalle de su compra ingresando a nuestra pagina: http://arreglosexpress.velozservers.com/public/Historial <br> \n";
+            $message .= "CLIENTE: ".$Cliente->dsNombre." ".$Cliente->dsApellidoPaterno." <br> \n";
+            $message .= "FOLIO COMPRA: ".(int)$Orden->id." <br> \n";
+            // message lines should not exceed 70 characters (PHP rule), so wrap it
+            $body = wordwrap($message, 70);
+            // send mail
+            mail($Cliente->dsEmail,$subject,$body,"From: $from\n");
+            
+        }else{            
             /*
-             * 
+             * //pago no aceptado
              */
+            $idCarroCompra = (int)$_POST['custom'];
+        
+            $CarroCompra = CarroCompra::find((int)$idCarroCompra); 
+            $Cliente = Cliente::find((int)$CarroCompra->idCliente);
+        
+            //guardar orden
+            $Orden = new Orden;
+            $Orden->mnTransaccion = (float)($_POST['mc_gross']);
+            $Orden->noTipoCambio = 13; //obsoleto -- por default 13
+            $Orden->idCarroCompra = (int)$idCarroCompra;
+            $Orden->idCliente = (int)$CarroCompra->idCliente;
+            $Orden->idEstatusVenta = 2;//pagada
+            $Orden->idIdioma = 1;//por default 1
+            $Orden->save();
+
+            //insertar pago
+            $Pago = new Pago;
+            $Pago->noImporte = (float)($_POST['mc_gross']);
+            $Pago->dsIdentificadorPagoPaypal = trim($_POST['txn_id']);
+            $Pago->dsMonedaPago = trim($_POST['mc_currency']);
+            $Pago->dsCorreoComprador = trim($_POST['payer_email']);
+            $Pago->idMoneda = 1;//por default 1
+            $Pago->idOrden = (int)$Orden->id;
+            $Pago->idEstatusPago =  2; //1 aprovado
+            $Pago->save();
+//            $from = "customerservice@arreglosexpress.velozservers.com"; // sender
+//            $subject = "Prueba";
+//            $message = "Mensaje de prueba :: pago no aceptado";
+//            // message lines should not exceed 70 characters (PHP rule), so wrap it
+//            $message = wordwrap($message, 70);
+//            // send mail
+//            mail("manuel_ca7@outlook.com",$subject,$message,"From: $from\n");
         }
     }
     
@@ -373,7 +469,7 @@ class CarritoController extends BaseController {
     {
         $idCarroCompra = Session::get('idCarroCompra');
         //revisar si existe un carro compra producto asociado
-        $existeCarroCompraProducto = DB::table('carrocompraproducto')
+        $existeCarroCompraProducto = DB::table('CarroCompraProducto')
                     ->where("idCarroCompra",'=',(int)$idCarroCompra)
                     ->where('idProducto','=',(int)$idProducto)
                     ->get();
@@ -384,7 +480,7 @@ class CarritoController extends BaseController {
            if((int)$flagAgrega==1){//ya existe el registro
                return true;
            }else{//eliminar
-               DB::table('carrocompraproducto')
+               DB::table('CarroCompraProducto')
                        ->where("idCarroCompra",'=',(int)$idCarroCompra)
                        ->where('idProducto','=',(int)$idProducto)
                        ->delete();
@@ -421,11 +517,11 @@ class CarritoController extends BaseController {
     {
         $idCarroCompra = Session::get('idCarroCompra');
         
-        $listCarroCompraSource = DB::table('carrocompra')
-            ->join('carrocompraproducto', 'carrocompra.id', '=', 'carrocompraproducto.idCarroCompra')
-            ->join('cproducto', 'carrocompraproducto.idProducto', '=', 'cproducto.id')
-            ->select('carrocompraproducto.id as idcp','carrocompraproducto.noCantidad','cproducto.dsNombre','cproducto.noPrecio','cproducto.id')
-            ->where('carrocompra.id','=',(int)$idCarroCompra)
+        $listCarroCompraSource = DB::table('CarroCompra')
+            ->join('CarroCompraProducto', 'CarroCompra.id', '=', 'CarroCompraProducto.idCarroCompra')
+            ->join('cProducto', 'CarroCompraProducto.idProducto', '=', 'cProducto.id')
+            ->select('CarroCompraProducto.id as idcp','CarroCompraProducto.noCantidad','cProducto.dsNombre','cProducto.noPrecio','cProducto.id')
+            ->where('CarroCompra.id','=',(int)$idCarroCompra)
             ->get();
         
         $listCarroCompra = array();

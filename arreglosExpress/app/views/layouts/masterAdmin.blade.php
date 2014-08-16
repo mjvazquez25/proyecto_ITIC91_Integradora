@@ -45,7 +45,7 @@ Julio 2014
           <a href="AdminMensajeContacto" class="nivel1">Mensajes</a>
       </li>
       <li class="nivel1">
-          <a href="Admin" class="nivel1">Salir</a>
+          <a href="logout" class="nivel1">Salir</a>
       </li>
     </ul>
 </div>

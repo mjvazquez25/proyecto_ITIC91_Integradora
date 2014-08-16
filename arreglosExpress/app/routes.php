@@ -1,5 +1,7 @@
 <?php
-
+/* $password = Hash::make('xxx');
+echo $password;
+die();*/
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -21,6 +23,21 @@ Route::get('/', function()
  *  SECCION DE FRONT-END [USUARIO / PUBLICO]
  * 
  *************************************/
+
+Route::get('Inicio', function()
+{
+	return View::make('public.hello');
+});
+
+Route::get('Faqs', function()
+{
+	return View::make('public.faqs');
+});
+
+Route::get('AcercaDe', function()
+{
+	return View::make('public.acercade');
+});
 
 Route::get('Usuario', 'UsuariosController@mostrarUsuarios');
 
@@ -49,6 +66,15 @@ Route::post('guardaDireccionCarrito', 'CarritoController@guardaDireccionCarrito'
 Route::get('CreaFormularioDePago', 'CarritoController@CreaFormularioDePago');
 
 Route::get('validationPaypal', 'CarritoController@validationPaypal');
+Route::post('validationPaypal', 'CarritoController@validationPaypal');
+
+Route::post('PaypalResponse', 'CarritoController@PaypalResponse');
+
+Route::get('Historial', 'HistorialController@showHistorial');
+
+Route::get('HistorialById', 'HistorialController@showHistorialById');
+
+Route::get('DetalleOrden', 'HistorialController@DetalleOrden');
 
 Route::get('Contacto', function()
 {
@@ -70,9 +96,11 @@ Route::get('Admin', 'AuthController@showLogin');
 // Validamos los datos de inicio de sesion.
 Route::post('Admin', 'AuthController@postLogin');
 
+Route::get('login', 'AuthController@showLogin');
+
 // Nos indica que las rutas que están dentro de al solo serán mostradas si antes el usuario se ha autenticado.
-//Route::group(array('before' => 'auth'), function()
-//{
+Route::group(array('before' => 'auth'), function()
+{
     // Esta sera nuestra ruta de bienvenida al Administradors
     Route::get('HomeAdmin', function()
     {
@@ -145,4 +173,4 @@ Route::post('Admin', 'AuthController@postLogin');
     // Esta ruta nos servira para cerrar sesion.
     Route::get('logout', 'AuthController@logOut');      
     
-//}); 
+}); 

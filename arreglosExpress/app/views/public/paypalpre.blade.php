@@ -39,9 +39,9 @@
         <!-- <input type="hidden" name="payer_id" value="{{$Cliente->id}}" />
         <input type="hidden" name="payer_email" value="{$customer->email}" /> -->
         <input type="hidden" name="custom" value="{{$idCarroCompra}}" />
-        <input type="hidden" name="return" value="" />
-        <input type="hidden" name="cancel_return" value="Galeria" />
-        <input type="hidden" name="notify_url" value="validationPaypal" />
+        <input type="hidden" name="return" value="http://arreglosexpress.velozservers.com/public/PaypalResponse" />
+        <input type="hidden" name="cancel_return" value="http://arreglosexpress.velozservers.com/public/Galeria" />
+        <input type="hidden" name="notify_url" value="http://arreglosexpress.velozservers.com/public/validationPaypal" />
 
         <input type="hidden" name="rm" value="2" />
         <input type="hidden" name="bn" value="ARREGLOS EXPRESS" />

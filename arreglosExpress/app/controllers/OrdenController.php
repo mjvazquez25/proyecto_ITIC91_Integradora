@@ -6,13 +6,13 @@ class OrdenController extends BaseController {
      */
     public function listOrden()
     {        
-        $listOrden = DB::table('corden')
-            ->join('carrocompra', 'corden.idCarroCompra', '=', 'carrocompra.id')
-            ->join('cestatusventa', 'corden.idEstatusVenta', '=', 'cestatusventa.id')
-            ->join('cmoneda', 'carrocompra.idMoneda', '=', 'cmoneda.id') 
-            ->join('ccliente', 'corden.idCliente', '=', 'ccliente.id')
-            ->select('corden.id', 'cestatusventa.dsEstatusVenta', 'corden.mnTransaccion','cmoneda.dsSimbolo',
-                    'ccliente.dsNombre', 'ccliente.dsApellidoPaterno', 'ccliente.dsEmail')
+        $listOrden = DB::table('cOrden')
+            ->join('CarroCompra', 'cOrden.idCarroCompra', '=', 'CarroCompra.id')
+            ->join('cEstatusVenta', 'cOrden.idEstatusVenta', '=', 'cEstatusVenta.id')
+            ->join('cMoneda', 'CarroCompra.idMoneda', '=', 'cMoneda.id') 
+            ->join('cCliente', 'cOrden.idCliente', '=', 'cCliente.id')
+            ->select('cOrden.id', 'cEstatusVenta.dsEstatusVenta', 'cOrden.mnTransaccion','cMoneda.dsSimbolo',
+                    'cCliente.dsNombre', 'cCliente.dsApellidoPaterno', 'cCliente.dsEmail')
             ->get();
         
         //print_r($listOrden); die();
@@ -39,17 +39,17 @@ class OrdenController extends BaseController {
     {        
         
         //obtenemos los registros que coincidan con los datos de busqueda          
-        $listOrden = DB::table('corden')
-            ->join('carrocompra', 'corden.idCarroCompra', '=', 'carrocompra.id')
-            ->join('cestatusventa', 'corden.idEstatusVenta', '=', 'cestatusventa.id')
-            ->join('cmoneda', 'carrocompra.idMoneda', '=', 'cmoneda.id') 
-            ->join('ccliente', 'corden.idCliente', '=', 'ccliente.id')
-            ->select('corden.id', 'cestatusventa.dsEstatusVenta', 'corden.mnTransaccion','cmoneda.dsSimbolo',
-                    'ccliente.dsNombre', 'ccliente.dsApellidoPaterno', 'ccliente.dsEmail')
-            ->where('corden.idEstatusVenta', '=', (int)$_POST['cmbEstatusVenta'])
-//            ->whereBetween('created_at', array(
-//                                        date('Y-m-d',strtotime($_POST['fechaInicio']))." 00:00:00", 
-//                                        date('Y-m-d',strtotime($_POST['fechaFin']))." 23:59:59",))
+        $listOrden = DB::table('cOrden')
+            ->join('CarroCompra', 'cOrden.idCarroCompra', '=', 'CarroCompra.id')
+            ->join('cEstatusVenta', 'cOrden.idEstatusVenta', '=', 'cEstatusVenta.id')
+            ->join('cMoneda', 'CarroCompra.idMoneda', '=', 'cMoneda.id') 
+            ->join('cCliente', 'cOrden.idCliente', '=', 'cCliente.id')
+            ->select('cOrden.id', 'cEstatusVenta.dsEstatusVenta', 'cOrden.mnTransaccion','cMoneda.dsSimbolo',
+                    'cCliente.dsNombre', 'cCliente.dsApellidoPaterno', 'cCliente.dsEmail')
+            ->where('cOrden.idEstatusVenta', '=', (int)$_POST['cmbEstatusVenta'])
+            ->whereBetween('cOrden.created_at', array(
+                                        date('Y-m-d',strtotime($_POST['fechaInicio']))." 00:00:00", 
+                                        date('Y-m-d',strtotime($_POST['fechaFin']))." 23:59:59",))
             ->get();
         
         //obtener listado de estatus
@@ -80,15 +80,22 @@ class OrdenController extends BaseController {
         $CarroCompra = CarroCompra::find($Orden->idCarroCompra);        
         //obtener direccion de envio
         $Direccion = Direccion::find($CarroCompra->idDireccion);        
+        
         //obtener datos de pago
-        $Pago = Pago::find($idOrden);        
+        $Pago = Pago::where("idOrden","=",$idOrden)->get();
+        
         //obtener estatus Pago
-        $EstastusPago = EstatusPago::find($Pago->idEstatusPago);        
-        //obtener carrito de compra
-        $Carrito = DB::table('carrocompraproducto')
-            ->join('cproducto', 'carrocompraproducto.idProducto', '=', 'cproducto.id')
-            ->select('cproducto.dsNombre', 'carrocompraproducto.noCantidad')
-            ->get();
+        $EstastusPago = EstatusPago::find($Pago[0]->idEstatusPago);
+            
+        $Carrito = DB::table('CarroCompraProducto')
+        ->join('cProducto', 'CarroCompraProducto.idProducto', '=', 'cProducto.id')
+        ->join('CarroCompra', 'CarroCompraProducto.idCarroCompra', '=', 'CarroCompra.id')
+        ->join('cOrden', 'cOrden.idCarroCompra', '=', 'CarroCompra.id')
+        ->select('cProducto.dsNombre', 'CarroCompraProducto.noCantidad','cProducto.id')
+        ->where('cOrden.id','=',$idOrden)
+        ->get();
+        
+        $Producto = new Producto();
         
          return View::make('Admin.editarOrden',
                         array(
@@ -99,7 +106,8 @@ class OrdenController extends BaseController {
                               'EstastusPago' => $EstastusPago,
                               'Direccion' => $Direccion,
                               'Carrito' => $Carrito,
-                              'Orden' => $Orden
+                              'Orden' => $Orden,
+                              'Producto' => $Producto     
                             ));
     }
     
@@ -138,17 +146,17 @@ class OrdenController extends BaseController {
     {        
         
         //obtenemos los registros que coincidan con los datos de busqueda          
-        $listOrden = DB::table('corden')
-            ->join('carrocompra', 'corden.idCarroCompra', '=', 'carrocompra.id')
-            ->join('cestatusventa', 'corden.idEstatusVenta', '=', 'cestatusventa.id')
-            ->join('cmoneda', 'carrocompra.idMoneda', '=', 'cmoneda.id') 
-            ->join('ccliente', 'corden.idCliente', '=', 'ccliente.id')
-            ->select('corden.id', 'cestatusventa.dsEstatusVenta', 'corden.mnTransaccion','cmoneda.dsSimbolo',
-                    'ccliente.dsNombre', 'ccliente.dsApellidoPaterno', 'ccliente.dsEmail')
-            ->where('corden.idEstatusVenta', '=', (int)$_GET['idEstatusVentaSelected'])
-//            ->whereBetween('created_at', array(
-//                                        date('Y-m-d',strtotime($_POST['fechaInicio']))." 00:00:00", 
-//                                        date('Y-m-d',strtotime($_POST['fechaFin']))." 23:59:59",))
+        $listOrden = DB::table('cOrden')
+            ->join('CarroCompra', 'cOrden.idCarroCompra', '=', 'CarroCompra.id')
+            ->join('cEstatusVenta', 'cOrden.idEstatusVenta', '=', 'cEstatusVenta.id')
+            ->join('cMoneda', 'CarroCompra.idMoneda', '=', 'cMoneda.id') 
+            ->join('cCliente', 'cOrden.idCliente', '=', 'cCliente.id')
+            ->select('cOrden.id', 'cEstatusVenta.dsEstatusVenta', 'cOrden.mnTransaccion','cMoneda.dsSimbolo',
+                    'cCliente.dsNombre', 'cCliente.dsApellidoPaterno', 'cCliente.dsEmail')
+            ->where('cOrden.idEstatusVenta', '=', (int)$_GET['idEstatusVentaSelected'])
+            ->whereBetween('cOrden.created_at', array(
+                                        date('Y-m-d',strtotime($_POST['fechaInicio']))." 00:00:00", 
+                                        date('Y-m-d',strtotime($_POST['fechaFin']))." 23:59:59",))
             ->get();
         
         header('Content-type: application/vnd.ms-excel');

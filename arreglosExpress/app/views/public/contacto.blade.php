@@ -10,6 +10,13 @@
     <h1>Contactanos! </h1>
     
     <br/>
+    
+    <p>
+        En arreglos express nos esmeramos por darles un mejor servicio día con día,
+        es por eso que hemos creado esta sesión para que nos escriban sus dudas y 
+        comentarios acerca de nuestros productos y servicios.
+    </p>
+    <br/>
      <form id="frmContacto">
         <table id="tbNormal" border="0" style=" width: 100%; border-collapse: separate;border-spacing:12px; border:1px solid black">
             <tr>                    

@@ -38,7 +38,7 @@ Julio 2014
       <div class="login_caja" id="login_caja" style="position:relative; margin:2% auto;">          
         <div style="position:relative; margin-left:30px; margin-right:30px;  height:200px;">
             <br />      
-            <form name="login" id="frmLogin" action="" method="post">            
+            <form name="login" id="frmLogin" action="Admin" method="post">            
             <table  CELLSPACING=3 CELLPADDING=3 align="left">        
                 <tr>
                     <td  align="right" valign="middle">Usuario</td>
